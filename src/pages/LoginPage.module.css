@@ -1,0 +1,10 @@
+.formLogin{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    min-width: 130px;
+}
+input,button{
+    margin-top: 10px;
+}
