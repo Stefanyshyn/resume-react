@@ -7,12 +7,7 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
-  Container
+  Container,
 } from 'reactstrap';
 
 const Example = ({children}) => {
@@ -38,6 +33,14 @@ const Example = ({children}) => {
       <Container>
         {children}
       </Container>
+      <footer color="blue" className="font-small pt-4 mt-4">
+        <div className="footer-copyright text-center py-3">
+          <Container fluid>
+            &copy; {new Date().getFullYear()} Copyright: <a href="mailto: ivanstefanushun@gmail.com"> Ivan Stefanyshyn </a>
+          </Container>
+        </div>
+      </footer>
+
     </>
   );
 }
