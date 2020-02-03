@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/LoginPage/';
-
+import Test from './pages/TestPage';
 function App() {
   return (
     <BrowserRouter>
@@ -24,7 +24,7 @@ function App() {
         <Route
           path="/"
         >
-          <div>Home</div>
+           <Test/>
         </Route>
       </Switch>
     </BrowserRouter>
