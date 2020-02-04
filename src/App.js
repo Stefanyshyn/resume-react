@@ -7,25 +7,34 @@ import {
 import './App.css';
 import LoginPage from './pages/LoginPage/';
 import Test from './pages/TestPage';
+//layout
+import AuthLayout from './layouts/AuthLayout'; 
+
+
 function App() {
   return (
     <BrowserRouter>
       <Switch>
       <Route
           path="/sign-in"
-        >
-          <LoginPage isLogin={true}/>
-        </Route>
+          render={(props) => (
+            <AuthLayout {...props}>
+              <LoginPage {...props} isLogin={true}/>
+            </AuthLayout>
+          )}
+        />
         <Route
           path="/sign-up"
-        >
-          <LoginPage isLogin={false}/>
-        </Route>
+          render={(props) => (
+            <AuthLayout {...props}>
+              <LoginPage {...props} isLogin={false}/>
+            </AuthLayout>
+          )}
+        />
         <Route
           path="/"
-        >
-           <Test/>
-        </Route>
+          component={Test}
+        />
       </Switch>
     </BrowserRouter>
   );

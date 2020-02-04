@@ -7,7 +7,7 @@ class Collection{
     constructor(name){
         this.name = name;
         this.items = this._loadItems();
-        this.items = [{id:1},{id:2},{id:1},{id:3}];
+        this.items = [{id:1,accessTokens: []},{id:2,accessTokens: []},{id:1,accessTokens: []},{id:3,accessTokens: []}];
     }
 
     find = (predicate)=> _.filter(this.items, predicate);
@@ -41,7 +41,7 @@ class Collection{
         _.merge(doc, source);
         return doc;
     }
-
+    
     _loadItems = ()=> this.items = JSON.parse(localStorage.getItem(PREFIX+this.name)) || [];
     _saveItems = ()=> localStorage.setItem(PREFIX+this.name, JSON.stringify(this.items));
 }

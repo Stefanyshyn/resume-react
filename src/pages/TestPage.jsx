@@ -1,6 +1,6 @@
 import React from 'react';
 import collection from '../utils/collection';
-
+import ModelUser from '../models/user';
 const coll = new collection();
 
 const test = (props)=>{
@@ -11,6 +11,9 @@ const test = (props)=>{
         }
         <br/>
          {   JSON.stringify(coll.updateOne({id:1}, {id: 8}))
+        }
+        <br/>
+         {   JSON.stringify(ModelUser.addAccessToken({id:1,accessTokens: []}))
         }
         </div>
     );
