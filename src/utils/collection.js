@@ -7,9 +7,12 @@ class Collection{
     constructor(name){
         this.name = name;
         this.items = this._loadItems();
+        this.items = [{id:1},{id:2},{id:1},{id:3}];
     }
 
     find = (predicate)=> _.filter(this.items, predicate);
+
+    findOne = (predicate)=> _.find(this.items, predicate);
 
     remove = (predicate) => _.remove(this.items, predicate);
 
@@ -22,12 +25,21 @@ class Collection{
         return doc;
     }
 
-    edit = (predicate, source)=>{
+    update = (predicate, source)=>{
+        if(_.isEmpty(predicate)) return undefined;
         let editItems = _.filter(this.items, predicate);
         editItems.forEach((item)=>{
             _.merge(item, source);
         })
         return editItems;
+    }
+
+    updateOne = (predicate, source)=>{
+        if(_.isEmpty(predicate)) return undefined;
+        let doc = _.find(this.items, predicate);
+        
+        _.merge(doc, source);
+        return doc;
     }
 
     _loadItems = ()=> this.items = JSON.parse(localStorage.getItem(PREFIX+this.name)) || [];
