@@ -5,11 +5,12 @@ import {
   Route,
 } from 'react-router-dom';
 import './App.css';
+//pages
 import LoginPage from './pages/LoginPage/';
 import Test from './pages/TestPage';
-//layout
+import ProfilePage from './pages/ProfilePage';
+//layouts
 import AuthLayout from './layouts/AuthLayout'; 
-
 
 function App() {
   return (
@@ -28,6 +29,14 @@ function App() {
           render={(props) => (
             <AuthLayout {...props}>
               <LoginPage {...props} isLogin={false}/>
+            </AuthLayout>
+          )}
+        />
+        <Route
+          path="/profile"
+          render={(props) => (
+            <AuthLayout {...props}>
+              <ProfilePage {...props}/>
             </AuthLayout>
           )}
         />
