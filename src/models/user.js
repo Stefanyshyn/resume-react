@@ -1,4 +1,4 @@
-import Crypto from 'crypto';
+import md5 from 'md5';
 import Collection from '../utils/collection';
 import uuid from 'uuid/v4';
 import _ from 'lodash';
@@ -22,8 +22,7 @@ user{
 const TOKEN_EXPIRATION_TIME = 30*60*1000;
 
 const encrypt = (string)=>{
-    let crypto = new Crypto('totalyKey');
-    return crypto.encrypt(string);
+    return md5(string);
 }
 
 const initUser = (username, password)=> {
@@ -46,11 +45,12 @@ class User{
     }
 
     createUser = (username, password)=>{
-        if(!_.isEmpty(this.collection.findOne({}))){
+        let isExist = !!this.collection.findOne({username});
+        if(isExist){
             throw new Error('Username is taken');
         }
         let user = initUser(username, password);
-        let accessToken = this.addAccessToken();
+        let accessToken = this.addAccessToken(user);
         this.collection.add(user);
         return accessToken;
     }

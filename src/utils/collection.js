@@ -7,14 +7,17 @@ class Collection{
     constructor(name){
         this.name = name;
         this.items = this._loadItems();
-        this.items = [{id:1,accessTokens: []},{id:2,accessTokens: []},{id:1,accessTokens: []},{id:3,accessTokens: []}];
     }
 
     find = (predicate)=> _.filter(this.items, predicate);
 
     findOne = (predicate)=> _.find(this.items, predicate);
 
-    remove = (predicate) => _.remove(this.items, predicate);
+    remove = (predicate) => {
+        let removeItems = _.remove(this.items, predicate);
+        this._saveItems();
+        return removeItems;
+    }
 
     add = (doc)=>{
         if(!('id' in doc))
@@ -22,6 +25,7 @@ class Collection{
             doc.id = uuid();
         }
         this.items.push(doc);
+        this._saveItems();
         return doc;
     }
 
@@ -31,6 +35,7 @@ class Collection{
         editItems.forEach((item)=>{
             _.merge(item, source);
         })
+        this._saveItems();
         return editItems;
     }
 
@@ -39,6 +44,7 @@ class Collection{
         let doc = _.find(this.items, predicate);
         
         _.merge(doc, source);
+        this._saveItems();
         return doc;
     }
     
