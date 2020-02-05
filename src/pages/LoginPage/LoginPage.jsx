@@ -14,38 +14,45 @@ class LoginPage extends React.Component{
         this.state = {
             username: '',
             password: '',
-//            confirmPassword: ''
-            activeErr: false,
-            msgErr:''
+            confirmPassword: '',
+            error:{
+                active: false,
+                message: ''
+            }
         }
     }
 
     handleChange = (e) =>{
         let {name, value} = e.target;
-        console.log(name, "",value);
+        this.setState({[name]:value})
     }
 
     handleSubmit = (e)=> {
         e.preventDefault();
-        const {username, password} = this.state;
+        const {username, password, confirmPassword } = this.state;
         const { history, isLogin} = this.props;
         try{
             if(isLogin)
+                ModelUser.login(username, password);
+            else {
+                if(password !== confirmPassword) 
+                    throw new Error('confirm password is wrong')                
                 ModelUser.createUser(username, password);
+            }
+            history.push('/main');        
         }catch(e)
         {
-            let {activeErr, msgErr} = this.state;
-            activeErr = true;
-            msgErr = e.message;
-        }
-
-            history.push('/sign-in');        
-        
+            this.setState({error:{
+                active: true,
+                message: e.message
+            }})
+        }        
     }
 
 
     render = ()=> {
         const {isLogin} = this.props;
+        const {error} = this.state;
         return (
             <div className={style.loginContainer}>          
                 {isLogin?(
@@ -59,7 +66,7 @@ class LoginPage extends React.Component{
                         <RegisterFrom handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
                     </React.Fragment>
                 )}
-    <Alert isOpen={this.state.activeErr}> {this.state.msgErr}</Alert>
+                <Alert isOpen={error.active}> {error.message}</Alert>
             </div>
         );
     }

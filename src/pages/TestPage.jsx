@@ -5,10 +5,10 @@ import Crypto from 'crypto';
 
 const coll = new collection();
 
-const encrypt = (string)=>{
-    let crypto = new Crypto('totalyKey');
-    return crypto.encrypt(string);
-}
+// const encrypt = (string)=>{
+//     let crypto = new Crypto('totalyKey');
+//     return crypto.encrypt(string);
+// }
 
 
 const test = (props)=>{

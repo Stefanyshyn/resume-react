@@ -1,7 +1,6 @@
 import md5 from 'md5';
 import Collection from '../utils/collection';
 import uuid from 'uuid/v4';
-import _ from 'lodash';
 /*
 user{
     id: String
@@ -68,8 +67,13 @@ class User{
         expiresAt: new Date(Date.now() + TOKEN_EXPIRATION_TIME)
     })
 
-    login = () => {
-        
+    login = (username, password) => {
+        const  user = this.collection.findOne({username, password: encrypt(password)});
+        if(!user){
+            throw new  Error('Username or password is wrong');
+        }
+        const accessToken = this.addAccessToken(user);
+        return accessToken;        
     }
 
 }
