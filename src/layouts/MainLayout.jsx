@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -9,12 +10,12 @@ import {
   NavLink,
   Container,
 } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 
-const Example = ({children}) => {
+function handleLogout(){}
+
+const MainLayout = ({children}) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
-
   return (
     <>
       <Navbar color="dark" dark expand="md">
@@ -23,10 +24,16 @@ const Example = ({children}) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="/about/">About us</NavLink>
+              <NavLink tag="span">
+                <Link to="/profile" className="nav-link">
+                  Profile
+                </Link>
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/Stefanyshyn/resume-react.git">GitHub</NavLink>
+              <NavLink href="#" onClick={handleLogout}>
+                Log out
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
@@ -46,4 +53,4 @@ const Example = ({children}) => {
   );
 }
 
-export default Example;
+export default MainLayout;

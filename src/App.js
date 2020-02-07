@@ -11,6 +11,7 @@ import Test from './pages/TestPage';
 import ProfilePage from './pages/ProfilePage';
 //layouts
 import AuthLayout from './layouts/AuthLayout'; 
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
@@ -35,9 +36,9 @@ function App() {
         <Route
           path="/profile"
           render={(props) => (
-            <AuthLayout {...props}>
+            <MainLayout {...props}>
               <ProfilePage {...props}/>
-            </AuthLayout>
+            </MainLayout>
           )}
         />
         <Route
