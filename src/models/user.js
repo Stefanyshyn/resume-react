@@ -59,7 +59,7 @@ class User{
         const accessTokens = [...user.accessTokens, accessToken];
         this.collection.updateOne({...user},{accessTokens});
         user.accessTokens = accessTokens;
-        return user;
+        return accessToken;
     }
 
     generateAccessToken = ()=> ({

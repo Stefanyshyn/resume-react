@@ -43,7 +43,11 @@ function App() {
         />
         <Route
           path="/"
-          component={Test}
+          render={(props) => (
+            <MainLayout {...props}>
+              <Test {...props}/>
+            </MainLayout>
+          )}
         />
       </Switch>
     </BrowserRouter>

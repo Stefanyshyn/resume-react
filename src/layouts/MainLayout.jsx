@@ -31,8 +31,10 @@ const MainLayout = ({children}) => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#" onClick={handleLogout}>
-                Log out
+              <NavLink>
+                <Link to="/main" className="nav-link" onClick={handleLogout}>
+                  Log out
+                </Link>
               </NavLink>
             </NavItem>
           </Nav>

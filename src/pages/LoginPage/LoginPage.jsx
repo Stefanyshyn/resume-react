@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import style from './LoginPage.module.css';
 import LoginForm from '../../components/LoginForm';
 import RegisterFrom from '../../components/RegisterForm';
-import ModelUser from '../../models/user';
+import ModelUser from '../../models/user-front';
 
 class LoginPage extends React.Component{ 
     
@@ -37,9 +37,9 @@ class LoginPage extends React.Component{
             else {
                 if(password !== confirmPassword) 
                     throw new Error('confirm password is wrong')                
-                ModelUser.createUser(username, password);
+                ModelUser.signup(username, password);
             }
-            history.push('/main');        
+            history.push('/profile');        
         }catch(e)
         {
             this.setState({error:{
