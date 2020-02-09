@@ -1,0 +1,15 @@
+.profileContainer{
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.profileAvatar{
+    margin: 10px 0 5px 0;
+    display: flex;
+}
+.avatar{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: auto;     
+}
