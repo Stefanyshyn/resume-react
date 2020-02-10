@@ -7,7 +7,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   Container,
 } from 'reactstrap';
 
@@ -24,18 +23,14 @@ const MainLayout = ({children}) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink tag="span">
-                <Link to="/profile" className="nav-link">
-                  Profile
-                </Link>
-              </NavLink>
+              <Link to="/profile" className="nav-link">
+                Profile
+              </Link>
             </NavItem>
-            <NavItem>
-              <NavLink>
-                <Link to="/main" className="nav-link" onClick={handleLogout}>
-                  Log out
-                </Link>
-              </NavLink>
+            <NavItem >
+              <Link to="/main" className="nav-link" onClick={handleLogout}>
+                Log out
+              </Link>
             </NavItem>
           </Nav>
         </Collapse>

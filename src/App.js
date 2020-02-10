@@ -9,6 +9,7 @@ import './App.css';
 import LoginPage from './pages/LoginPage/';
 import Test from './pages/TestPage';
 import ProfilePage from './pages/ProfilePage';
+import PersonalProfilePage from './pages/PersonalProfilePage';
 //layouts
 import AuthLayout from './layouts/AuthLayout'; 
 import MainLayout from './layouts/MainLayout';
@@ -35,9 +36,19 @@ function App() {
         />
         <Route
           path="/profile"
+          exact
+          render={(props) => (
+            <MainLayout {...props}> 
+              <PersonalProfilePage {...props}/>
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/profile/:username"
+          exact
           render={(props) => (
             <MainLayout {...props}>
-              <ProfilePage {...props}/>
+               <ProfilePage {...props}/>
             </MainLayout>
           )}
         />

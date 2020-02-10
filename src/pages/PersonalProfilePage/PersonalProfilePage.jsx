@@ -1,8 +1,7 @@
 import React from 'react';
 import { 
-    CardImg, 
-    CardBody,
-    CardText, 
+    Input, 
+    Col, Form, FormGroup, Label, Media
 } from 'reactstrap';
 import faker from 'faker';
 import style from './PersonalProfilePage.module.css';
@@ -20,19 +19,46 @@ class ProfilePage extends React.Component{
             }
         }
     }
+
+    handleSubmit = ()=>{
+        
+    }
+
+    handleSelectFile = ()=>{
+
+    }
+
     render(){
         const {profile} = this.user;
         return(
-            <div className={style.profileContainer}>
-                <div className={style.profileAvatar}>
-                    <CardImg className={style.avatar} src={profile.avatar} alt="Here should be the user face" />
-                </div>
-                <div>
-                    <CardBody className="text-center">
-                        <CardText>{profile.name}</CardText>
-                    </CardBody>
-                </div>
-        </div>
+            <Form className={style.profileContainer} onSubmit={this.handleSubmit}>
+                <FormGroup className={style.profileAvatar}>                    
+                    <Col>
+                        <Media className={style.avatar} src={profile.avatar} alt="Here should be the user face" />
+                    </Col>
+                </FormGroup>
+                <FormGroup row>
+                   <Label for="name" sm={3}>
+                       Name
+                    </Label>
+                    <Col sm={9}>
+                        <Input  className={style.Input} type="text" name="name" readOnly value={profile.name} />
+                    </Col>
+                </FormGroup>
+                <FormGroup row>
+                    <Label sm={3}>
+                        Avatar
+                    </Label>
+                    <Col sm={9}>
+                        <Input className={style.Input} type="file" name="newAvatar" onChange={this.handleSelectFile} />
+                    </Col>
+                </FormGroup>
+                <FormGroup row>
+                    <Col className={style.btnSave}>
+                    <Input className="btn btn-dark" value="Save" name="save" type="submit"/>
+                </Col>
+                </FormGroup>
+            </Form>
         );
     }
 }

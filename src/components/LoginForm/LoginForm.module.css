@@ -5,11 +5,11 @@
     flex-direction: column;
     min-width: 130px;
 }
-input{
+.Input{
     margin-top: 10px;
     max-width: 300px;
 }
-button{
+.Button{
     margin-top: 15px;
     margin-bottom: 15px;
 }

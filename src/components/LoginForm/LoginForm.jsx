@@ -6,9 +6,9 @@ const LoginForm = (props)=>{
     const {handleSubmit, handleChange} = props;
     return (
         <Form className={style.formLogin} onSubmit={handleSubmit}>
-            <Input type="text" name="username" placeholder="Username" onChange={handleChange}/>
-            <Input type="password" name="password" placeholder="Password" onChange={handleChange}/>
-            <Button type="submit">Log In</Button>
+            <Input className={style.Input} type="text" name="username" placeholder="Username" onChange={handleChange}/>
+            <Input className={style.Input} type="password" name="password" placeholder="Password" onChange={handleChange}/>
+            <Button className={style.Button} type="submit">Log In</Button>
         </Form>
     );
 }
