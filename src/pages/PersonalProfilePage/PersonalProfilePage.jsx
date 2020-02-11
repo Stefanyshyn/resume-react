@@ -3,33 +3,33 @@ import {
     Input, 
     Col, Form, FormGroup, Label, Media
 } from 'reactstrap';
-import faker from 'faker';
 import style from './PersonalProfilePage.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import UserModel from '../../models/user-front';
 
 class ProfilePage extends React.Component{
     constructor(props){
         super(props);
-        console.log(props);
-        this.user = {
-            profile:{
-                name: faker.name.firstName(2),
-                avatar: faker.image.avatar()
-            }
+        this.state = {
+            user : UserModel.getCurrentUser()
         }
     }
 
     handleSubmit = ()=>{
-        
+
     }
 
-    handleSelectFile = ()=>{
-
+    handleSelectFile = (e)=>{
+        const {value} = e.target;
+        this.setState({user:{
+            profile:{
+                avatar: value
+        }}})
+        console.log(this.state, value);
     }
 
     render(){
-        const {profile} = this.user;
+        const {profile} = this.state.user;
         return(
             <Form className={style.profileContainer} onSubmit={this.handleSubmit}>
                 <FormGroup className={style.profileAvatar}>                    
@@ -54,7 +54,7 @@ class ProfilePage extends React.Component{
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Col className={style.btnSave}>
+                    <Col className={style.btnSave + " " + style.Input}>
                     <Input className="btn btn-dark" value="Save" name="save" type="submit"/>
                 </Col>
                 </FormGroup>

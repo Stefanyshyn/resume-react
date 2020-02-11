@@ -11,11 +11,13 @@ const coll = new collection();
 
 
 const test = (props)=>{
+    let currentUser = ModelUser.getCurrentUser();
+
     return (
         <div>
         <br/>
         {   
-            JSON.stringify(ModelUser._loadAccessToken)
+            JSON.stringify(currentUser)
         }
         <br/>
         {   

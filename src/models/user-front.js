@@ -18,12 +18,17 @@ class User{
     }
 
     _loadAccessToken = ()=>{
-        return localStorage.getItem(ACCESS_TOKEN_PATH);
+        return JSON.parse(localStorage.getItem(ACCESS_TOKEN_PATH));
     }
 
     getUser = ()=>{
         let accessToken = this._loadAccessToken();
         return accessToken;
+    }
+    
+    getCurrentUser = ()=>{
+        const accessToken = this._loadAccessToken();
+        return UserServer.getByAccessToken(accessToken);
     }
 
 }

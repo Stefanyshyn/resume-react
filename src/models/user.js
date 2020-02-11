@@ -53,7 +53,7 @@ class User{
         this.collection.add(user);
         return accessToken;
     }
-
+    
     addAccessToken = (user)=>{
         let accessToken = this.generateAccessToken();
         const accessTokens = [...user.accessTokens, accessToken];
@@ -74,6 +74,14 @@ class User{
         }
         const accessToken = this.addAccessToken(user);
         return accessToken;        
+    }
+
+    getByAccessToken = (accessToken)=>{
+        const user = this.collection.findOne({accessTokens:[{
+            token: accessToken.token
+        }]});
+        return user;
+
     }
 
 }

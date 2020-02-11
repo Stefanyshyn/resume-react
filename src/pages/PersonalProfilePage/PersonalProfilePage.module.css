@@ -25,3 +25,7 @@
 .btnSave input {
     max-width: 100px;
 }
+.btnSave input, Input[type="text"] {
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
