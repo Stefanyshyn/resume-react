@@ -20,45 +20,45 @@ class ProfilePage extends React.Component{
 
     }
 
-    upload = (file)=>{
+    upload = async (file)=>{
         let Imgur = {
             url: 'https://api.imgur.com/3/image',
             clientId: 'ad0fc8894c9331f'
         }
-        let formData = new FormData();
-        
+        let formData = new FormData( document.forms.profile );
+   
         formData.append('image',file);
-
-        console.log(formData)
-        let result = fetch(Imgur.url, {
+        
+        let result = await fetch(Imgur.url, {
             headers:{
                 Authorization: `Client-ID ${Imgur.clientId}`
             },
             method: 'POST',
-            body:{
-                formData
-            }
+            body: formData
         })
-        let json = JSON.stringify(result);
-        console.log(json)
+        const json = await result.json();
+        console.log(json);
+        return console.log(json.data.link);
     }
 
-    handleSubmit = ()=>{
-
+    handleSubmit = async (e)=>{
+        let file = e.target.newAvatar.files[0];
+        let urlImage = await this.upload(file);
+        
     }
 
-    handleSelectFile = (e)=>{
-        const {value} = e.target;
+    handleSelectFile = async (e)=>{
+        const file = e.target.files[0];
         this.setState({
-            avatar: URL.createObjectURL(e.target.files[0]) 
+            avatar: URL.createObjectURL(file) 
         })
-        this.upload(value);
+        
     }
 
     render(){
         const {avatar, name} = this.state;
         return(
-            <Form className={style.profileContainer} onSubmit={this.handleSubmit}>
+            <Form name="profile" className={style.profileContainer} onSubmit={this.handleSubmit}>
                 <FormGroup className={style.profileAvatar}>                    
                     <Col>
                         <Media className={style.avatar} src={avatar} alt="Here should be the user face" />
