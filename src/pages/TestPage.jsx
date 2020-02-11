@@ -10,8 +10,12 @@ const coll = new collection();
 // }
 
 
+
+
+
 const test = (props)=>{
     let currentUser = ModelUser.getCurrentUser();
+    const clientId = 'f123024a1dc28dff1cb9864022d2266d5079c7aa';
 
     return (
         <div>
