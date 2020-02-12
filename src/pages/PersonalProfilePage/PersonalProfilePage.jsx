@@ -10,14 +10,13 @@ import UserModel from '../../models/user-front';
 class ProfilePage extends React.Component{
     constructor(props){
         super(props);
-        let user = UserModel.getCurrentUser();
+        this.user = UserModel.getCurrentUser();
         this.state = {
-            avatar: user.profile.avatar,
+            avatar: this.user.profile.avatar,
             newAvatar: null,
-            username: user.username,
-            name: user.profile.name,
+            username: this.user.username,
+            name: this.user.profile.name,
         }
-
     }
 
     upload = async (file)=>{
@@ -44,6 +43,17 @@ class ProfilePage extends React.Component{
     handleSubmit = async (e)=>{
         let file = e.target.newAvatar.files[0];
         let urlImage = await this.upload(file);
+        const [username, newAvatar, name] = this.state;
+        let user = {
+            id: this.user.id,
+            usernane: username,
+            profile: {
+                name: name,
+                avatar: newAvatar
+            }
+        }
+
+        UserMode.upda
         
     }
 

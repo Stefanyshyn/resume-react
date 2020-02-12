@@ -30,6 +30,9 @@ class User{
         const accessToken = this._loadAccessToken();
         return UserServer.getByAccessToken(accessToken);
     }
+    update = (user) =>{
+        return this.update(user);
+    }
 
 }
 

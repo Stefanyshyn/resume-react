@@ -84,6 +84,9 @@ class User{
 
     }
 
+    update = (user) => { 
+        return this.collection.updateOne({ id:user.id}, user);
+    }
 }
 
 export default new User();
