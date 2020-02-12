@@ -31,7 +31,7 @@ class User{
         return UserServer.getByAccessToken(accessToken);
     }
     update = (user) =>{
-        return this.update(user);
+        return UserServer.updateOne(user);
     }
 
 }

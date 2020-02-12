@@ -7,6 +7,26 @@ import style from './PersonalProfilePage.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import UserModel from '../../models/user-front';
 
+const upload = async (file)=>{
+    let Imgur = {
+        url: 'https://api.imgur.com/3/image',
+        clientId: 'ad0fc8894c9331f'
+    }
+    let formData = new FormData( document.forms.profile );
+
+    formData.append('image',file);
+    
+    let result = await fetch(Imgur.url, {
+        headers:{
+            Authorization: `Client-ID ${Imgur.clientId}`
+        },
+        method: 'POST',
+        body: formData
+    })
+    const json = await result.json();
+    return json.data.link;
+}
+
 class ProfilePage extends React.Component{
     constructor(props){
         super(props);
@@ -19,42 +39,22 @@ class ProfilePage extends React.Component{
         }
     }
 
-    upload = async (file)=>{
-        let Imgur = {
-            url: 'https://api.imgur.com/3/image',
-            clientId: 'ad0fc8894c9331f'
-        }
-        let formData = new FormData( document.forms.profile );
-   
-        formData.append('image',file);
-        
-        let result = await fetch(Imgur.url, {
-            headers:{
-                Authorization: `Client-ID ${Imgur.clientId}`
-            },
-            method: 'POST',
-            body: formData
-        })
-        const json = await result.json();
-        console.log(json);
-        return console.log(json.data.link);
-    }
-
     handleSubmit = async (e)=>{
+        e.preventDefault();
+
         let file = e.target.newAvatar.files[0];
-        let urlImage = await this.upload(file);
-        const [username, newAvatar, name] = this.state;
+        let urlImage = await upload(file);
+        const {username, name} = this.state;
         let user = {
             id: this.user.id,
             usernane: username,
             profile: {
-                name: name,
-                avatar: newAvatar
+                name,
+                avatar: urlImage
             }
         }
 
-        UserMode.upda
-        
+        UserModel.update(user);
     }
 
     handleSelectFile = async (e)=>{
@@ -62,7 +62,11 @@ class ProfilePage extends React.Component{
         this.setState({
             avatar: URL.createObjectURL(file) 
         })
-        
+    }
+
+    handleChange = (e)=>{
+        const {value, name} = e.target;
+        this.setState({[name]: value})
     }
 
     render(){
@@ -79,7 +83,7 @@ class ProfilePage extends React.Component{
                        Name
                     </Label>
                     <Col sm={9}>
-                        <Input  className={style.Input} type="text" name="name" readOnly value={name} />
+                        <Input  className={style.Input} type="text" name="name" value={name}  onChange={this.handleChange}/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>

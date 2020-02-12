@@ -84,7 +84,7 @@ class User{
 
     }
 
-    update = (user) => { 
+    updateOne = (user) => { 
         return this.collection.updateOne({ id:user.id}, user);
     }
 }

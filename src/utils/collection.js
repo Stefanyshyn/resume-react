@@ -42,9 +42,12 @@ class Collection{
     updateOne = (predicate, source)=>{
         if(_.isEmpty(predicate)) return undefined;
         let doc = _.find(this.items, predicate);
-        
+
         _.merge(doc, source);
         this._saveItems();
+
+        console.log(doc,source)
+
         return doc;
     }
     
