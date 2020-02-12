@@ -6,26 +6,7 @@ import {
 import style from './PersonalProfilePage.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import UserModel from '../../models/user-front';
-
-const upload = async (file)=>{
-    let Imgur = {
-        url: 'https://api.imgur.com/3/image',
-        clientId: 'ad0fc8894c9331f'
-    }
-    let formData = new FormData( document.forms.profile );
-
-    formData.append('image',file);
-    
-    let result = await fetch(Imgur.url, {
-        headers:{
-            Authorization: `Client-ID ${Imgur.clientId}`
-        },
-        method: 'POST',
-        body: formData
-    })
-    const json = await result.json();
-    return json.data.link;
-}
+import Uploader from '../../utils/uploader';
 
 class ProfilePage extends React.Component{
     constructor(props){
@@ -43,7 +24,7 @@ class ProfilePage extends React.Component{
         e.preventDefault();
 
         let file = e.target.newAvatar.files[0];
-        let urlImage = await upload(file);
+        let urlImage = await Uploader.upload(file);
         const {username, name} = this.state;
         let user = {
             id: this.user.id,
