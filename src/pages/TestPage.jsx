@@ -4,18 +4,8 @@ import ModelUser from '../models/user-front';
 
 const coll = new collection();
 
-// const encrypt = (string)=>{
-//     let crypto = new Crypto('totalyKey');
-//     return crypto.encrypt(string);
-// }
-
-
-
-
-
 const test = (props)=>{
     let currentUser = ModelUser.getCurrentUser();
-    const clientId = 'f123024a1dc28dff1cb9864022d2266d5079c7aa';
 
     return (
         <div>

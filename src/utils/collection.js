@@ -46,8 +46,6 @@ class Collection{
         _.merge(doc, source);
         this._saveItems();
 
-        console.log(doc,source)
-
         return doc;
     }
     

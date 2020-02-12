@@ -1,8 +1,8 @@
 class Uploader {
     
     constructor(){
-        this.url = 'https://api.imgur.com/3/image';
-        this.clientId = 'ad0fc8894c9331f'
+        this.url = process.env.REACT_APP_IMGUR_URL;
+        this.clientId = process.env.REACT_APP_IMGUR_CLIENT_ID;
     }
     
     upload = async (file)=>{

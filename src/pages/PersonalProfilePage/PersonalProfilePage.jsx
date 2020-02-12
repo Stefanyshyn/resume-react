@@ -34,8 +34,9 @@ class ProfilePage extends React.Component{
                 avatar: urlImage
             }
         }
-
+        console.log(1);
         UserModel.update(user);
+        console.log(2);
     }
 
     handleSelectFile = async (e)=>{
