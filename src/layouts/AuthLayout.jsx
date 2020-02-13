@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Redirect} from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -16,9 +17,10 @@ const Example = ({children}) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
   let user = UserModel.getCurrentUser();
-  //if(!!user) UserModel.log(user.id);
+
   return (
     <>
+      {user?<Redirect to="/profile"></Redirect>:'' }
       <Navbar color="dark" dark expand="md">
         <NavbarBrand href="/">Resume</NavbarBrand>
         <NavbarToggler onClick={toggle} />
