@@ -76,7 +76,20 @@ class User{
         return accessToken;        
     }
 
+    logout = (token) => {
+        let user = this.collection.findOne({accessTokens:[{token}]})
+        
+        if(!user) return null;
+        
+        let accessTokens = user.accessTokens.filter((accessToken)=>{
+            return accessToken.token !== token;
+        })
+
+        this.collection.updateOne({id: user.id}, {accessTokens});
+    }
+
     getByAccessToken = (accessToken)=>{
+        if(!accessToken) return;
         const user = this.collection.findOne({accessTokens:[{
             token: accessToken.token
         }]});

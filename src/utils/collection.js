@@ -33,7 +33,7 @@ class Collection{
         if(_.isEmpty(predicate)) return undefined;
         let editItems = _.filter(this.items, predicate);
         editItems.forEach((item)=>{
-            _.merge(item, source);
+            _.assign(item, source);
         })
         this._saveItems();
         return editItems;
@@ -43,7 +43,8 @@ class Collection{
         if(_.isEmpty(predicate)) return undefined;
         let doc = _.find(this.items, predicate);
 
-        _.merge(doc, source);
+        _.assign(doc, source);
+
         this._saveItems();
 
         return doc;

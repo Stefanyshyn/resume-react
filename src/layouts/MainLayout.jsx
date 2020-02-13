@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {
+  NavLink,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -9,14 +10,21 @@ import {
   NavItem,
   Container,
 } from 'reactstrap';
+import UserModel from '../models/user-front';
 
-function handleLogout(){}
 
-const MainLayout = ({children}) => {
+const MainLayout = ({children, history}) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
+  let user = !!(UserModel.getCurrentUser());
+  const handleLogout = (e)=>{
+    UserModel.logout();
+    history.replace('/sign-in')
+  }
+
   return (
     <>
+      {user?'':<Redirect to='/sign-in'></Redirect>}
       <Navbar color="dark" dark expand="md">
         <NavbarBrand href="/">Resume</NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -28,7 +36,7 @@ const MainLayout = ({children}) => {
               </Link>
             </NavItem>
             <NavItem >
-              <Link to="/main" className="nav-link" onClick={handleLogout}>
+              <Link to="/sign-in" className="nav-link" onClick={handleLogout}>
                 Log out
               </Link>
             </NavItem>

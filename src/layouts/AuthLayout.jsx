@@ -10,11 +10,13 @@ import {
   Container,
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import UserModel from '../models/user-front';
 
 const Example = ({children}) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
-
+  let user = UserModel.getCurrentUser();
+  //if(!!user) UserModel.log(user.id);
   return (
     <>
       <Navbar color="dark" dark expand="md">
@@ -26,7 +28,7 @@ const Example = ({children}) => {
               <NavLink href="/about/">About us</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/Stefanyshyn/resume-react.git">GitHub</NavLink>
+              <NavLink href="https://github.com/Stefanyshyn/resume-react.gitс">GitHub</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

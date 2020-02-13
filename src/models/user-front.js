@@ -20,12 +20,6 @@ class User{
     _loadAccessToken = ()=>{
         return JSON.parse(localStorage.getItem(ACCESS_TOKEN_PATH));
     }
-
-    getUser = ()=>{
-        let accessToken = this._loadAccessToken();
-        return accessToken;
-    }
-    
     getCurrentUser = ()=>{
         const accessToken = this._loadAccessToken();
         return UserServer.getByAccessToken(accessToken);
@@ -33,7 +27,10 @@ class User{
     update = (user) =>{
         return UserServer.updateOne(user);
     }
-
+    logout = ()=>{ 
+        UserServer.logout(this._loadAccessToken().token);
+        this._saveAccessToken(null)
+    }
 }
 
 export default new  User();
