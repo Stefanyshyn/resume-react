@@ -10,6 +10,8 @@ import LoginPage from './pages/LoginPage/';
 import Test from './pages/TestPage';
 import ProfilePage from './pages/ProfilePage';
 import PersonalProfilePage from './pages/PersonalProfilePage';
+import CreateResumePage from './pages/CreateResumePage';
+
 //layouts
 import AuthLayout from './layouts/AuthLayout'; 
 import MainLayout from './layouts/MainLayout';
@@ -49,6 +51,15 @@ function App() {
           render={(props) => (
             <MainLayout {...props}>
                <ProfilePage {...props}/>
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/create-resume"
+          exact
+          render={(props) => (
+            <MainLayout {...props}>
+               <CreateResumePage {...props}/>
             </MainLayout>
           )}
         />

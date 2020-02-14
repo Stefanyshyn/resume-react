@@ -1,0 +1,21 @@
+.avatarSetting > div,.personalAdditionToggel,.avatarResume{
+    display: flex !important;
+}
+.avatarSetting{
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+}
+.avatarSetting > div:first-child{
+    margin-bottom: 10px;
+}
+.avatarSetting > div >img{
+    margin-right:10px;
+}
+.personalAdditionToggel > img{
+    margin-left: 10px;
+}
+.avatar{
+    max-width: 130px;
+}
