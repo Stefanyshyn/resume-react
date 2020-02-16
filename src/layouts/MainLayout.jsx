@@ -30,9 +30,14 @@ const MainLayout = ({children, history}) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem>
+          <NavItem>
               <Link to="/profile" className="nav-link">
                 Profile
+              </Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/create-resume" className="nav-link">
+                Create resume
               </Link>
             </NavItem>
             <NavItem >

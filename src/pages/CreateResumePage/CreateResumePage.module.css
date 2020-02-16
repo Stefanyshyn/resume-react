@@ -1,16 +1,52 @@
-.avatarSetting > div,.personalAdditionToggel,.avatarResume{
+@media (min-width: 570px){
+    
+}
+label{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.Firstname, .Lastname,.JobResume, .AvatarResume,.EmailResume, .NumberResume{
+    flex-basis: 50%;
+    
+}
+.Firstname,.JobResume,.EmailResume{
+    margin-right: 40px;
+}
+@media (max-width: 570px){
+    .Firstname, .Lastname,.JobResume, .AvatarResume,.EmailResume, .NumberResume {
+        margin-right: 0px;
+        margin-bottom: 20px;
+        flex: 0 0 100%;
+    }
+    .nameResume, .JobAvatar, .ContactInfoResume {
+        flex-direction: column;
+        justify-content: space-between !important;
+    }
+    .Firstname,.JobResume,.EmailResume{
+        margin-right: 0;
+    }
+}
+.nameResume,.JobAvatar,.ContactInfoResume{
+    justify-content: space-between !important;
+}
+.JobAvatar, .nameResume,.ContactInfoResume, .avatarSetting > div,.personalAdditionToggel,.AvatarResume,.add,.EmpoymentDate{
     display: flex !important;
+}
+
+.EmpoymentDate> img{
+    flex:4;
 }
 .avatarSetting{
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
     flex-flow: column nowrap;
+    margin-left: 20px;
 }
 .avatarSetting > div:first-child{
     margin-bottom: 10px;
 }
-.avatarSetting > div >img{
+.avatarSetting > div >img,.addEmployment > img{
     margin-right:10px;
 }
 .personalAdditionToggel > img{
