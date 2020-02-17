@@ -37,7 +37,7 @@ class ProfilePage extends React.Component{
         UserModel.update(user);
     }
 
-    handleSelectFile = async (e)=>{
+    handleSelectFile = (e)=>{
         const file = e.target.files[0];
         this.setState({
             avatar: URL.createObjectURL(file) 

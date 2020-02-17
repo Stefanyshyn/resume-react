@@ -74,8 +74,14 @@ input[type='date']{
     -webkit-box-pack: center;
     justify-content: center;
     flex-flow: column nowrap;
-    margin-left: 0;
 }
+.avatarSetting > div:first-child:hover,
+.avatarSetting > div:last-child:hover,
+.personalAdditionToggel:hover{
+    cursor: pointer;
+    color: rgb(56, 56, 255);
+}
+
 .avatarSetting > div:first-child{
     margin-bottom: 10px;
 }
@@ -115,4 +121,18 @@ input[type='date']{
     .avatarSetting{
         margin-top: 10px !important;
     }
+}
+.Input{
+    height: 100%;
+}
+.btnSave{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.btnSave input {
+    max-width: 100px;
+}
+.btnSave input {
+    font-size: 20px !important;
+    font-weight: 500 !important;
 }

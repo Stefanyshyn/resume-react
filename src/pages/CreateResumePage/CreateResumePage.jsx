@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import style from './CreateResumePage.module.css';
 import { Form, FormGroup, Label, Input, Col, Media } from 'reactstrap';
 import * as CreateResume from '../../components/CreateResume';
-
+import Uploader from '../../utils/uploader';
 class CreateResumePage extends React.Component{ 
     
     constructor(props){
@@ -18,6 +18,8 @@ class CreateResumePage extends React.Component{
 
             firstname: '',
             lastname: '',
+            avatar: '',
+            newAvatar:'',
             email:'',
             phone:'',
             country: '',
@@ -108,7 +110,36 @@ class CreateResumePage extends React.Component{
         this.setState({isAddLanguage: !isAddLanguage});
     }
 
+    handleSelectFile = (e)=>{
+        e.preventDefault();
+        let input = document.createElement('input');
+        input.type = 'file';
+        
+        input.onchange = (e) =>{ 
+            let file = e.target.files[0]; 
+            this.setState({
+                avatar: URL.createObjectURL(file),
+                newAvatar: file
+            })
+        }
+        
+        input.click();
+    }
+    handleSubmit = async(e)=>{
+        e.preventDefault();
+        const {
+            newAvatar
+        } = this.state;
+        
+        let urlImage = await Uploader.upload(newAvatar);
+        console.log(urlImage);
+
+    }
+
     render = ()=> {
+        const {
+            avatar
+        } = this.state;
         const { 
             isAddEducation,isPersonalAddition,
             isAddEmployment, isAddLink, 
@@ -117,16 +148,17 @@ class CreateResumePage extends React.Component{
         const { 
             handleClickPersonalAddional,handleClickAddEmployment,
             handleClickAddEducation, handleClickAddLink, 
-            handleClickAddSkill, handleClickAddLanguage
+            handleClickAddSkill, handleClickAddLanguage,
+            handleSelectFile, handleSubmit
         } = this;
         const{
             PersonalAddionalDetails, AddEmployment,
             AddEducation, AddLink,
             AddSkill, AddLanguage
         } = CreateResume;
-        console.log(CreateResume);
+        
         return (
-            <Form name='resumeForm'>
+            <Form name='resumeForm' onSubmit={handleSubmit}>
                 <FormGroup>
                     <h1>Personal data</h1>
                      <Col className={style.JobAvatar}>
@@ -136,12 +168,17 @@ class CreateResumePage extends React.Component{
                         </div>
                         <div className={style.AvatarResume}>
                             <div className={style.avatar}>
+                                {avatar?
+                                <Media width='100' height='100' src={avatar} alt='Picture'></Media>
+                                :
                                 <Media width='100' height='100' src='https://image.flaticon.com/icons/svg/1077/1077114.svg' alt='Picture'></Media>
+                            }
                             </div>
                             <div className={style.avatarSetting}>
-                                <div>
+                                <div onClick={handleSelectFile}>
                                     <Media width="24" height="24" viewBox="0 0 24 24"  src='https://image.flaticon.com/icons/png/128/1001/1001371.png' alt=" * "/>
                                     <span>Edit photo</span>
+                                    <div className={style.FocusDiv}></div>
                                 </div>
                                 <div>
                                     <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/748/748023.svg' alt=" - "/>
@@ -309,9 +346,13 @@ class CreateResumePage extends React.Component{
                         <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
                     </Col>
                 </FormGroup>
-                
-
-
+                <FormGroup >
+                    <Col>
+                        <div className={style.btnSave + " " + style.Input}>
+                            <Input className="btn btn-dark" value="Save" name="save" type="submit"/>
+                        </div>
+                    </Col>
+                </FormGroup>
             </Form>
         );
     }
