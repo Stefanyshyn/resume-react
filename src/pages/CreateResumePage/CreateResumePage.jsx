@@ -12,6 +12,7 @@ class CreateResumePage extends React.Component{
             isAddEmployment: false,
             isAddEducation: false,
             isAddLink: false,
+            isAddSkill: false,
 
             employments:[ ] 
             // employer
@@ -40,15 +41,18 @@ class CreateResumePage extends React.Component{
         let {isAddEducation} = this.state;
         this.setState({isAddEducation: !isAddEducation});
     }
-
     handleClickAddLink = (e) =>{
         let {isAddLink} = this.state;
         this.setState({isAddLink: !isAddLink});
     }
+    handleClickAddSkill = (e) =>{
+        let {isAddSkill} = this.state;
+        this.setState({isAddSkill: !isAddSkill});
+    }
 
     render = ()=> {
-        const { isAddEducation,isPersonalAddition,isAddEmployment, isAddLink } = this.state;
-        const { handleClickPersonalAddional,handleClickAddEmployment,handleClickAddEducation, handleClickAddLink } = this;
+        const { isAddEducation,isPersonalAddition,isAddEmployment, isAddLink, isAddSkill } = this.state;
+        const { handleClickPersonalAddional,handleClickAddEmployment,handleClickAddEducation, handleClickAddLink, handleClickAddSkill } = this;
 
         return (
             <Form name='resumeForm'>
@@ -189,25 +193,20 @@ class CreateResumePage extends React.Component{
                 </FormGroup>
                 <FormGroup>
                     <h1>Skills</h1>
-                    <Col>
-                        <span>
-
-                        </span>
-                    </Col>
-                    <Col className={style.add}>
-                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                        <span>Add skill</span>
-                    </Col>
-                    <Col>
-                        <div>
-                            <span>Skill</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>Degree</span>
-                            <Input type="text"></Input>
-                        </div>
-                    </Col>
+                    {!isAddSkill?
+                        <Col className={style.add} onClick={handleClickAddSkill}>
+                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                            <span>Add skill</span>
+                        </Col>
+                        :
+                        <React.Fragment>
+                            <AddSkill/>
+                            <Col className={style.add} onClick={handleClickAddSkill}>
+                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                                <span>Save skill</span>
+                            </Col>
+                        </React.Fragment>
+                    }
                 </FormGroup>
                 <FormGroup>
                     <h1>Languages</h1>
@@ -366,6 +365,21 @@ const AddLink = ()=>{
                 <Input type="text"></Input>
             </div>
         </Col>
+    );
+}
+
+const AddSkill = ()=>{
+    return (
+        <Col>
+        <div>
+            <span>Skill</span>
+            <Input type="text"></Input>
+        </div>
+        <div>
+            <span>Degree</span>
+            <Input type="text"></Input>
+        </div>
+    </Col>
     );
 }
 
