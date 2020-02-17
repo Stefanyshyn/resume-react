@@ -1,0 +1,42 @@
+.CountryResume, .CityResume,
+.Address, .Nationality,
+.PlaceBirth, .DateBirth,
+.StartDate, .EndDate{
+    flex-basis: 50%;
+}
+.CountryResume,
+.Address,
+.PlaceBirth,
+.StartDate{
+    margin-right: 40px;
+}
+@media (max-width: 570px){
+    .CountryResume, .CityResume,
+    .Address, .Nationality,
+    .PlaceBirth, .DateBirth,
+    .StartDate, .EndDate {
+        margin-right: 0px;
+        margin-bottom: 10px;
+        flex: 0 0 100%;
+    }
+    .AddessResume,
+    .BirthReusme,
+    .StartEndDate {
+        flex-direction: column;
+    }
+    .CountryResume,
+    .Address,
+    .PlaceBirth,
+    .StartDate{
+        margin-right: 0;
+    }
+}
+.AddessResume,
+.BirthReusme,
+.StartEndDate
+{
+    justify-content: space-between !important;
+}
+.AddessResume, .BirthReusme, .StartEndDate{
+        display: flex !important;
+}

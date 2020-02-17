@@ -5,14 +5,12 @@ label, span{
     font-weight: 600 !important;
     font-size: 18px;
 }
-
+input[type='date']{
+    height: 44px !important;
+}
 .Firstname, .Lastname,
 .JobResume, .AvatarResume,
-.EmailResume, .NumberResume,
-.CountryResume, .CityResume,
-.Address, .Nationality,
-.PlaceBirth, .DateBirth,
-.StartDate, .EndDate{
+.EmailResume, .NumberResume{
     flex-basis: 50%;
 }
 .Firstname,
@@ -20,8 +18,7 @@ label, span{
 .EmailResume,
 .CountryResume,
 .Address,
-.PlaceBirth,
-.StartDate{
+.PlaceBirth{
     margin-right: 40px;
 }
 @media (max-width: 570px){
@@ -30,8 +27,7 @@ label, span{
     .EmailResume, .NumberResume,
     .CountryResume, .CityResume,
     .Address, .Nationality,
-    .PlaceBirth, .DateBirth,
-    .StartDate, .EndDate {
+    .PlaceBirth, .DateBirth {
         margin-right: 0px;
         margin-bottom: 10px;
         flex: 0 0 100%;
@@ -40,8 +36,7 @@ label, span{
     .JobAvatar, 
     .ContactInfoResume,
     .AddessResume,
-    .BirthReusme,
-    .StartEndDate {
+    .BirthReusme {
         flex-direction: column;
     }
     .Firstname,
@@ -49,8 +44,7 @@ label, span{
     .EmailResume,
     .CountryResume,
     .Address,
-    .PlaceBirth,
-    .StartDate{
+    .PlaceBirth {
         margin-right: 0;
     }
 }
@@ -58,16 +52,15 @@ label, span{
 .JobAvatar,
 .ContactInfoResume,
 .AddessResume,
-.BirthReusme,
-.StartEndDate
-{
+.BirthReusme{
     justify-content: space-between !important;
 }
 .JobAvatar, .nameResume,.ContactInfoResume, 
-.AddessResume, .BirthReusme, .StartEndDate,
+.AddessResume, .BirthReusme,
 .avatarSetting > div,.personalAdditionToggel,.AvatarResume,.EmpoymentDate{
     display: flex !important;
 }
+
 .add{
     display: flex !important;
     align-items: center;
@@ -81,7 +74,7 @@ label, span{
     -webkit-box-pack: center;
     justify-content: center;
     flex-flow: column nowrap;
-    margin-left: 20px;
+    margin-left: 0;
 }
 .avatarSetting > div:first-child{
     margin-bottom: 10px;
@@ -113,4 +106,13 @@ label, span{
 }
 .add:hover{
     background-color: #d3e7ff;
+}
+
+@media (max-width: 570px){
+    .AvatarResume{
+        flex-direction: column;
+    }
+    .avatarSetting{
+        margin-top: 10px !important;
+    }
 }
