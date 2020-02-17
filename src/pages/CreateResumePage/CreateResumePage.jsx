@@ -15,6 +15,23 @@ class CreateResumePage extends React.Component{
             isAddSkill: false,
             isAddLanguage: false,
 
+            firstname: '',
+            lastname: '',
+            email:'',
+            phone:'',
+            country: '',
+            city: '',
+            address: '',
+            nationality: '',
+            birthPleca: '',
+            birthday:'',
+            //   /|\
+            //  / | \
+            // /  |  \
+            //    |
+            //    |
+            //    |
+            // personal data 
             employments:[ ] 
             // employer
             // {
@@ -26,6 +43,41 @@ class CreateResumePage extends React.Component{
             //     description: ''
             // }
             ,
+            educations:[]
+            // education
+            // {
+            //     establishment:'',
+            //     degree: '',
+            //     startDate:'',
+            //     endDate:'',
+            //     city: '',
+            //     description: ''
+            // }
+            ,
+            links:[]
+            // link
+            // {
+            //     title: '',
+            //     PathURL: ''
+            // }
+            ,
+            skills:[]
+            // skill
+            // {
+            //     skill: '',
+            //     degree: ''
+            // }
+            ,
+            languages:[]
+            // language
+            // {
+            //     language: '',
+            //     level: ''
+            // }
+            ,
+            hobbies:''
+            ,
+
         }
     }
 
