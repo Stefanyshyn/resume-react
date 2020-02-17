@@ -10,6 +10,7 @@ class CreateResumePage extends React.Component{
         this.state = {
             isPersonalAddition: false,
             isAddEmployment: false,
+            isAddEducation: false,
 
             employments:[ ] 
             // employer
@@ -25,19 +26,24 @@ class CreateResumePage extends React.Component{
         }
     }
 
-    handelClickPersonalAddional = (e) =>{
+    handleClickPersonalAddional = (e) =>{
         let {isPersonalAddition} = this.state;
         this.setState({isPersonalAddition: !isPersonalAddition});
     }
 
-    handelClickEmployment = (e) =>{
+    handleClickAddEmployment = (e) =>{
         let {isAddEmployment} = this.state;
         this.setState({isAddEmployment: !isAddEmployment});    
     }
+    handleClickAddEducation = (e) =>{
+        let {isAddEducation} = this.state;
+        this.setState({isAddEducation: !isAddEducation});
+        console.log(isAddEducation);   
+    }
 
     render = ()=> {
-        const { isPersonalAddition,isAddEmployment } = this.state;
-        const { handelClickPersonalAddional,handelClickEmployment } = this;
+        const { isAddEducation,isPersonalAddition,isAddEmployment } = this.state;
+        const { handleClickPersonalAddional,handleClickAddEmployment,handleClickAddEducation } = this;
 
         return (
             <Form name='resumeForm'>
@@ -87,7 +93,7 @@ class CreateResumePage extends React.Component{
                     {
                         isPersonalAddition?<PersonalAddionalDetails></PersonalAddionalDetails>:''
                     }
-                    <Col className={style.personalAdditionToggel} onClick={handelClickPersonalAddional} >
+                    <Col className={style.personalAdditionToggel} onClick={handleClickPersonalAddional} >
                         <span>{ isPersonalAddition? 'Edit additional details':'Hide additional details'}</span>
                         {
                             isPersonalAddition?
@@ -115,21 +121,22 @@ class CreateResumePage extends React.Component{
                             Include your relevant experience and dates in this section. List your most recent position first.
                         </span>
                     </Col>
-                        {isAddEmployment?
-                            <Col className={style.add} onClick={handelClickEmployment}>
-                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                                <span>Add employment</span>
+                    {!isAddEmployment?
+                        <Col className={style.add} onClick={handleClickAddEmployment}>
+                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                            <span>Add employment</span>
+                        </Col>
+                        :
+                        <React.Fragment>
+                            <AddEmployment/>
+                            <Col className={style.add} onClick={handleClickAddEmployment}>
+                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                                <span>Save employment</span>
                             </Col>
-                            :
-                            <React.Fragment>
-                                <AddEmployment/>
-                                <Col className={style.add} onClick={handelClickEmployment}>
-                                    <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                                    <span>Save employment</span>
-                                </Col>
-                            </React.Fragment>
-                        }
+                        </React.Fragment>
+                    }
                 </FormGroup>  
+                
                 <FormGroup>
                     <h1>Education</h1>
                     <Col className={style.TitleArticle}>
@@ -137,37 +144,23 @@ class CreateResumePage extends React.Component{
                             Include your most recent educational achievements and the dates
                         </span>
                     </Col>
-                    <Col className={style.add}>
-                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                        <span>Add education</span>
-                    </Col>
-                    <Col>
-                        <div>
-                            <span>Establishment</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>Degree</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>Star and End Date</span>
-                            <div className={style.EmpoymentDate}>
-                                <Input type="date"></Input>    
-                                <Col></Col>
-                                <Input type="date"></Input>    
-                            </div>
-                        </div>
-                        <div>
-                            <span>City</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>Description</span>
-                            <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
-                        </div>
-                    </Col>
+                    {!isAddEducation?
+
+                        <Col className={style.add} onClick={handleClickAddEducation   }>
+                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                            <span>Add education</span>
+                        </Col>
+                        :
+                        <React.Fragment>
+                            <AddEducation/>
+                            <Col className={style.add} onClick={handleClickAddEducation   }>
+                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                                <span>Save education</span>
+                            </Col>
+                        </React.Fragment>
+                    }
                 </FormGroup>    
+                
                 <FormGroup>
                     <h1>Links</h1>
                     <Col className={style.TitleArticle}>
@@ -320,6 +313,40 @@ const AddEmployment = ()=>{
         </div>
     </Col>
 
+    );
+}
+
+const AddEducation = ()=>{
+    return (
+        <Col>
+        <div>
+            <span>Establishment</span>
+            <Input type="text"></Input>
+        </div>
+        <div>
+            <span>Degree</span>
+            <Input type="text"></Input>
+        </div>
+        <div>
+            <span>Star and End Date</span>
+            <div className={style.StartEndDate}>
+                <div className={style.StartDate}>
+                    <Input type="date"></Input>
+                </div>    
+                <div className={style.EndDate}>
+                    <Input type="date"></Input>
+                </div>    
+           </div>
+        </div>
+        <div>
+            <span>City</span>
+            <Input type="text"></Input>
+        </div>
+        <div>
+            <span>Description</span>
+            <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
+        </div>
+    </Col>
     );
 }
 
