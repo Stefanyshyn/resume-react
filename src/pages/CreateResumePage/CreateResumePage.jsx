@@ -13,6 +13,7 @@ class CreateResumePage extends React.Component{
             isAddEducation: false,
             isAddLink: false,
             isAddSkill: false,
+            isAddLanguage: false,
 
             employments:[ ] 
             // employer
@@ -49,10 +50,22 @@ class CreateResumePage extends React.Component{
         let {isAddSkill} = this.state;
         this.setState({isAddSkill: !isAddSkill});
     }
+    handleClickAddLanguage = (e) =>{
+        let {isAddLanguage} = this.state;
+        this.setState({isAddLanguage: !isAddLanguage});
+    }
 
     render = ()=> {
-        const { isAddEducation,isPersonalAddition,isAddEmployment, isAddLink, isAddSkill } = this.state;
-        const { handleClickPersonalAddional,handleClickAddEmployment,handleClickAddEducation, handleClickAddLink, handleClickAddSkill } = this;
+        const { 
+            isAddEducation,isPersonalAddition,
+            isAddEmployment, isAddLink, 
+            isAddSkill, isAddLanguage 
+        } = this.state;
+        const { 
+            handleClickPersonalAddional,handleClickAddEmployment,
+            handleClickAddEducation, handleClickAddLink, 
+            handleClickAddSkill, handleClickAddLanguage
+        } = this;
 
         return (
             <Form name='resumeForm'>
@@ -210,25 +223,21 @@ class CreateResumePage extends React.Component{
                 </FormGroup>
                 <FormGroup>
                     <h1>Languages</h1>
-                    <Col>
-                        <span>
-
-                        </span>
-                    </Col>
-                    <Col className={style.add}>
-                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                        <span>Add Language</span>
-                    </Col>
-                    <Col>
-                        <div>
-                            <span>Language</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>Level</span>
-                            <Input type="text"></Input>
-                        </div>
-                    </Col>
+        
+                    {!isAddLanguage?
+                        <Col className={style.add} onClick={handleClickAddLanguage}>
+                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                            <span>Add language</span>
+                        </Col>
+                        :
+                        <React.Fragment>
+                            <AddLanguage/>
+                            <Col className={style.add} onClick={handleClickAddLanguage}>
+                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                                <span>Save language</span>
+                            </Col>
+                        </React.Fragment>
+                    }
                 </FormGroup>
                 <FormGroup>
                     <h1>Hobbies</h1>
@@ -371,15 +380,30 @@ const AddLink = ()=>{
 const AddSkill = ()=>{
     return (
         <Col>
-        <div>
-            <span>Skill</span>
-            <Input type="text"></Input>
-        </div>
-        <div>
-            <span>Degree</span>
-            <Input type="text"></Input>
-        </div>
-    </Col>
+            <div>
+                <span>Skill</span>
+                <Input type="text"></Input>
+            </div>
+            <div>
+                <span>Degree</span>
+                <Input type="text"></Input>
+            </div>
+        </Col>
+    );
+}
+
+const AddLanguage = ()=>{
+    return (
+        <Col>
+            <div>
+                <span>Language</span>
+                <Input type="text"></Input>
+            </div>
+            <div>
+                <span>Level</span>
+                <Input type="text"></Input>
+            </div>
+        </Col>
     );
 }
 
