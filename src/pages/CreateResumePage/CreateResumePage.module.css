@@ -5,31 +5,60 @@ label{
     margin-top: 15px;
     margin-bottom: 15px;
 }
-.Firstname, .Lastname,.JobResume, .AvatarResume,.EmailResume, .NumberResume{
+.Firstname, .Lastname,
+.JobResume, .AvatarResume,
+.EmailResume, .NumberResume,
+.CountryResume, .CityResume,
+.Address, .Nationality,
+.PlaceBirth, .DateBirth{
     flex-basis: 50%;
     
 }
-.Firstname,.JobResume,.EmailResume{
+.Firstname,
+.JobResume,
+.EmailResume,
+.CountryResume,
+.Address,
+.PlaceBirth{
     margin-right: 40px;
 }
 @media (max-width: 570px){
-    .Firstname, .Lastname,.JobResume, .AvatarResume,.EmailResume, .NumberResume {
+    .Firstname, .Lastname,
+    .JobResume, .AvatarResume,
+    .EmailResume, .NumberResume,
+    .CountryResume, .CityResume,
+    .Address, .Nationality,
+    .PlaceBirth, .DateBirth {
         margin-right: 0px;
         margin-bottom: 20px;
         flex: 0 0 100%;
     }
-    .nameResume, .JobAvatar, .ContactInfoResume {
+    .nameResume, 
+    .JobAvatar, 
+    .ContactInfoResume,
+    .AddessResume,
+    .BirthReusme {
         flex-direction: column;
-        justify-content: space-between !important;
     }
-    .Firstname,.JobResume,.EmailResume{
+    .Firstname,
+    .JobResume,
+    .EmailResume,
+    .CountryResume,
+    .Address,
+    .PlaceBirth {
         margin-right: 0;
     }
 }
-.nameResume,.JobAvatar,.ContactInfoResume{
+.nameResume,
+.JobAvatar,
+.ContactInfoResume,
+.AddessResume,
+.BirthReusme{
     justify-content: space-between !important;
 }
-.JobAvatar, .nameResume,.ContactInfoResume, .avatarSetting > div,.personalAdditionToggel,.AvatarResume,.add,.EmpoymentDate{
+.JobAvatar, .nameResume,.ContactInfoResume, 
+.AddessResume, .BirthReusme,
+.avatarSetting > div,.personalAdditionToggel,.AvatarResume,.add,.EmpoymentDate{
     display: flex !important;
 }
 

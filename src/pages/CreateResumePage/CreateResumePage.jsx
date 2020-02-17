@@ -8,7 +8,7 @@ class CreateResumePage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isPersonalAddition: false,
+            isPersonalAddition: true,
 
         }
     }
@@ -250,25 +250,35 @@ class CreateResumePage extends React.Component{
 const PersonalAddionalDetails = ()=>{
     return (
         <div>
-            <Col sm={12}>
-                <Label>Country</Label>
-                <Input type="text" placeholder="--- -- --- -- ---"></Input>
+            <Col className={style.AddessResume}>
+                <div className={style.CountryResume}>
+                    <Label>Country</Label>
+                    <Input type="text" placeholder="--- -- --- -- ---"></Input>
+                </div>
+                <div className={style.CityResume}>
+                    <Label>City</Label>
+                    <Input type="text" placeholder="Ternopil"></Input>
+                </div>
             </Col>
-            <Col sm={12}>
-                <Label>City</Label>
-                <Input type="text" placeholder="Ternopil"></Input>
+            <Col className={style.AddessResume}>
+                <div className={style.Address}>
+                    <Label>Address</Label>
+                    <Input type="text" placeholder="Ternopil"></Input>
+                </div>
+                <div className={style.Nationality}>
+                    <Label>Nationality</Label>
+                    <Input type="text"></Input>
+                </div>
             </Col>
-            <Col sm={12}>
-                <Label>Nationality</Label>
-                <Input type="text"></Input>
-            </Col>
-            <Col sm={12}>
-                <Label>Place Of Birth</Label>
-                <Input type="text"></Input>
-            </Col>
-            <Col sm={12}>
-                <Label>Date Of Birth</Label>
-                <Input type="date" ></Input>
+            <Col className={style.BirthReusme}>
+                <div className={style.PlaceBirth}>
+                    <Label>Place Of Birth</Label>
+                    <Input type="text"></Input>
+                </div>
+                <div className={style.DateBirth}>
+                    <Label>Date Of Birth</Label>
+                    <Input type="date" ></Input>
+                </div>
             </Col>
         </div>
     );
