@@ -11,6 +11,7 @@ class CreateResumePage extends React.Component{
             isPersonalAddition: false,
             isAddEmployment: false,
             isAddEducation: false,
+            isAddLink: false,
 
             employments:[ ] 
             // employer
@@ -38,12 +39,16 @@ class CreateResumePage extends React.Component{
     handleClickAddEducation = (e) =>{
         let {isAddEducation} = this.state;
         this.setState({isAddEducation: !isAddEducation});
-        console.log(isAddEducation);   
+    }
+
+    handleClickAddLink = (e) =>{
+        let {isAddLink} = this.state;
+        this.setState({isAddLink: !isAddLink});
     }
 
     render = ()=> {
-        const { isAddEducation,isPersonalAddition,isAddEmployment } = this.state;
-        const { handleClickPersonalAddional,handleClickAddEmployment,handleClickAddEducation } = this;
+        const { isAddEducation,isPersonalAddition,isAddEmployment, isAddLink } = this.state;
+        const { handleClickPersonalAddional,handleClickAddEmployment,handleClickAddEducation, handleClickAddLink } = this;
 
         return (
             <Form name='resumeForm'>
@@ -135,8 +140,7 @@ class CreateResumePage extends React.Component{
                             </Col>
                         </React.Fragment>
                     }
-                </FormGroup>  
-                
+                </FormGroup>                
                 <FormGroup>
                     <h1>Education</h1>
                     <Col className={style.TitleArticle}>
@@ -159,8 +163,7 @@ class CreateResumePage extends React.Component{
                             </Col>
                         </React.Fragment>
                     }
-                </FormGroup>    
-                
+                </FormGroup>               
                 <FormGroup>
                     <h1>Links</h1>
                     <Col className={style.TitleArticle}>
@@ -168,20 +171,21 @@ class CreateResumePage extends React.Component{
                             Perhaps It will be  a link to your portfolio or personal website
                         </span>
                     </Col>
-                    <Col className={style.add}>
-                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                        <span>Add link</span>
-                    </Col>
-                    <Col>
-                        <div>
-                            <span>Title</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>URL-path</span>
-                            <Input type="text"></Input>
-                        </div>
-                    </Col>
+
+                    {!isAddLink?
+                        <Col className={style.add} onClick={handleClickAddLink}>
+                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                            <span>Add link</span>
+                        </Col>
+                        :
+                        <React.Fragment>
+                            <AddLink/>
+                            <Col className={style.add} onClick={handleClickAddLink}>
+                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                                <span>Save link</span>
+                            </Col>
+                        </React.Fragment>
+                    }
                 </FormGroup>
                 <FormGroup>
                     <h1>Skills</h1>
@@ -347,6 +351,21 @@ const AddEducation = ()=>{
             <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
         </div>
     </Col>
+    );
+}
+
+const AddLink = ()=>{
+    return (
+        <Col>
+            <div>
+                <span>Title</span>
+                <Input type="text"></Input>
+            </div>
+            <div>
+                <span>URL-path</span>
+                <Input type="text"></Input>
+            </div>
+        </Col>
     );
 }
 
