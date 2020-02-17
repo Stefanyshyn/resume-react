@@ -8,8 +8,20 @@ class CreateResumePage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isPersonalAddition: true,
+            isPersonalAddition: false,
+            isAddEmployment: false,
 
+            employments:[ ] 
+            // employer
+            // {
+            //     job:'',
+            //     employer: '',
+            //     startDate:'',
+            //     endDate:'',
+            //     city: '',
+            //     description: ''
+            // }
+            ,
         }
     }
 
@@ -17,9 +29,15 @@ class CreateResumePage extends React.Component{
         let {isPersonalAddition} = this.state;
         this.setState({isPersonalAddition: !isPersonalAddition});
     }
+
+    handelClickEmployment = (e) =>{
+        let {isAddEmployment} = this.state;
+        this.setState({isAddEmployment: !isAddEmployment});    
+    }
+
     render = ()=> {
-        const { isPersonalAddition } = this.state;
-        const { handelClickPersonalAddional } = this;
+        const { isPersonalAddition,isAddEmployment } = this.state;
+        const { handelClickPersonalAddional,handelClickEmployment } = this;
 
         return (
             <Form name='resumeForm'>
@@ -81,54 +99,40 @@ class CreateResumePage extends React.Component{
                 </FormGroup>
                 <FormGroup>
                     <h2>Professional Summary</h2>
-                    <Col>
-                        <span>
+                    <Col className={style.TitleArticle}>
+                        <span >
                             Include several sentences about your total experience
                         </span>
+                    </Col>
+                    <Col>
                         <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
                     </Col>
-                </FormGroup>                
+                </FormGroup>       
                 <FormGroup>
                     <h2>Employment History</h2>
-                    <Col>
+                    <Col className={style.TitleArticle}>
                         <span>
                             Include your relevant experience and dates in this section. List your most recent position first.
                         </span>
                     </Col>
-                    <Col className={style.add}>
-                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                        <span>Add employment</span>
-                    </Col>
-                    <Col>
-                        <div>
-                            <span>Job Title</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>Employer</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>Star and End Date</span>
-                            <div className={style.EmpoymentDate}>
-                                    <Input type="date"></Input>    
-                                    <Col></Col>
-                                    <Input type="date"></Input>    
-                            </div>
-                        </div>
-                        <div>
-                            <span>City</span>
-                            <Input type="text"></Input>
-                        </div>
-                        <div>
-                            <span>Description</span>
-                            <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
-                        </div>
-                    </Col>
+                        {isAddEmployment?
+                            <Col className={style.add} onClick={handelClickEmployment}>
+                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                                <span>Add employment</span>
+                            </Col>
+                            :
+                            <React.Fragment>
+                                <AddEmployment/>
+                                <Col className={style.add} onClick={handelClickEmployment}>
+                                    <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                                    <span>Save employment</span>
+                                </Col>
+                            </React.Fragment>
+                        }
                 </FormGroup>  
                 <FormGroup>
                     <h1>Education</h1>
-                    <Col>
+                    <Col className={style.TitleArticle}>
                         <span>
                             Include your most recent educational achievements and the dates
                         </span>
@@ -166,7 +170,7 @@ class CreateResumePage extends React.Component{
                 </FormGroup>    
                 <FormGroup>
                     <h1>Links</h1>
-                    <Col>
+                    <Col className={style.TitleArticle}>
                         <span>
                             Perhaps It will be  a link to your portfolio or personal website
                         </span>
@@ -281,6 +285,41 @@ const PersonalAddionalDetails = ()=>{
                 </div>
             </Col>
         </div>
+    );
+}
+
+const AddEmployment = ()=>{
+    return (
+        <Col>
+        <div>
+            <span>Job Title</span>
+            <Input type="text"></Input>
+        </div>
+        <div>
+            <span>Employer</span>
+            <Input type="text"></Input>
+        </div>
+        <div>
+            <span>Star and End Date</span>
+            <div className={style.StartEndDate}>
+                <div className={style.StartDate}>
+                    <Input type="date"></Input>
+                </div>    
+                <div className={style.EndDate}>
+                    <Input type="date"></Input>
+                </div>    
+           </div>
+        </div>
+        <div>
+            <span>City</span>
+            <Input type="text"></Input>
+        </div>
+        <div>
+            <span>Description</span>
+            <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
+        </div>
+    </Col>
+
     );
 }
 
