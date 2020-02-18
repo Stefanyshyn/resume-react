@@ -340,7 +340,7 @@ class AddLanguage extends React.Component {
                     <Input type="text" name='level' onChange={handleChange}/>
                 </div>
                 <Button onClick={handleAddLanguage}> 
-                    <Col className={style.add}>
+                    <Col className={style.btnSave}>
                         <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
                         <span>Save language</span>
                     </Col>

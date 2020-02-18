@@ -162,7 +162,7 @@ class CreateResumePage extends React.Component{
             handleSelectFile, handleSubmit,
             handleChange, 
             addEmploymant, addEducation,
-            addLink, addSkill
+            addLink, addSkill, addLanguage
         } = this;
         const{
             PersonalAddionalDetails, AddEmployment,
@@ -318,13 +318,7 @@ class CreateResumePage extends React.Component{
                             <span>Add language</span>
                         </Col>
                         :
-                        <React.Fragment>
-                            <AddLanguage/>
-                            <Col className={style.add} onClick={handleClickAddLanguage}>
-                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                                <span>Save language</span>
-                            </Col>
-                        </React.Fragment>
+                            <AddLanguage addLanguage={addLanguage}/>
                     }
                 </FormGroup>
 
