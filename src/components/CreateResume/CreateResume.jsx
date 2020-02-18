@@ -1,78 +1,131 @@
 import React from 'react';
-import { Label, Input, Col } from 'reactstrap';
+import { Media, Label, Input, Col, Form, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './CreateResume.module.css';
 
-const PersonalAddionalDetails = ()=>{
+const PersonalAddionalDetails = ({handleChange})=>{
     return (
         <div>
             <Col className={style.AddessResume}>
                 <div className={style.CountryResume}>
-                    <Label>Country</Label>
-                    <Input type="text" placeholder="--- -- --- -- ---"></Input>
+                    <Label for='country'>Country</Label>
+                    <Input type="text" name='country' placeholder="Ukraine" onChange={handleChange}></Input>
                 </div>
                 <div className={style.CityResume}>
-                    <Label>City</Label>
-                    <Input type="text" placeholder="Ternopil"></Input>
+                    <Label for='city'>City</Label>
+                    <Input type="text" name='city' placeholder="Ternopil"></Input>
                 </div>
             </Col>
             <Col className={style.AddessResume}>
                 <div className={style.Address}>
-                    <Label>Address</Label>
-                    <Input type="text" placeholder="Ternopil"></Input>
+                    <Label for='address'>Address</Label>
+                    <Input type="text" name='address' onChange={handleChange}></Input>
                 </div>
                 <div className={style.Nationality}>
-                    <Label>Nationality</Label>
-                    <Input type="text"></Input>
+                    <Label for='nationality'>Nationality</Label>
+                    <Input type="text" name='nationality' onChange={handleChange}></Input>
                 </div>
             </Col>
             <Col className={style.BirthReusme}>
                 <div className={style.PlaceBirth}>
-                    <Label>Place Of Birth</Label>
-                    <Input type="text"></Input>
+                    <Label for='birthPleca'>Place Of Birth</Label>
+                    <Input type="text" name='birthPleca' onChange={handleChange}></Input>
                 </div>
                 <div className={style.DateBirth}>
-                    <Label>Date Of Birth</Label>
-                    <Input type="date" ></Input>
+                    <Label for='birthday'>Date Of Birth</Label>
+                    <Input type="date" name='birthday' onChange={handleChange}></Input>
                 </div>
             </Col>
         </div>
     );
 }
 
-const AddEmployment = ()=>{
-    return (
-        <Col>
-        <div>
-            <span>Job Title</span>
-            <Input type="text"></Input>
-        </div>
-        <div>
-            <span>Employer</span>
-            <Input type="text"></Input>
-        </div>
-        <div>
-            <span>Star and End Date</span>
-            <div className={style.StartEndDate}>
-                <div className={style.StartDate}>
-                    <Input type="date"></Input>
-                </div>    
-                <div className={style.EndDate}>
-                    <Input type="date"></Input>
-                </div>    
-           </div>
-        </div>
-        <div>
-            <span>City</span>
-            <Input type="text"></Input>
-        </div>
-        <div>
-            <span>Description</span>
-            <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
-        </div>
-    </Col>
+class AddEmployment extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+             // employer
+            // {
+            //     job:'',
+            //     employer: '',
+            //     startDate:'',
+            //     endDate:'',
+            //     city: '',
+            //     description: ''
+            // }
+            job:'',
+            employer:'',
+            startDate: '',
+            endDate: '',
+            city:'',
+            description:''
+        }
+    }
+    handleChange = (e)=>{
+            let { name, value } = e.target;
+            this.setState({ [name]:value })
+    }
+    handleSubmitAddEmployment = (e) => {
+        const {
+            job, employer,
+            startDate, endDate,
+            city, description
+        } = this.state;
+        const {addEmploymant} = this.props;
+        let employment = {
+            job, 
+            employer,
+            startDate,
+            endDate,
+            city,
+            description
+        }
+        addEmploymant(employment);
+    }
 
-    );
+    render = () => {
+        const {
+            handleChange, handleSubmitAddEmployment
+        } = this;
+
+        return (
+            <Col>
+                <div>
+                    <Label for='job'>Job Title</Label>
+                    <Input type="text" name='job' onChange={handleChange}></Input>
+                </div>
+                <div>
+                    <Label for='employer'>Employer</Label>
+                    <Input type="text" name='employer' onChange={handleChange}></Input>
+                </div>
+                <div>
+                    <span>Star and End Date</span>
+                    <div className={style.StartEndDate}>
+                        <div className={style.StartDate}>
+                            <Input type="date" name='startDate' onChange={handleChange}></Input>
+                        </div>    
+                        <div className={style.EndDate}>
+                            <Input type="date" name='endDate' onChange={handleChange}></Input>
+                        </div>    
+                    </div>
+                </div>
+                <div>
+                    <Label for='city'>City</Label>
+                    <Input type="text" name='city' onChange={handleChange}></Input>
+                </div>
+                <div>
+                    <Label for='description'>Description</Label>
+                    <Input rows={4} type="textarea" name='description' style={{resize: 'none'}}  onChange={handleChange}></Input>
+                </div>
+                <Button onClick={handleSubmitAddEmployment}> 
+                <Col className={style.add}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                        <span>Save employment</span>
+                    </Col>
+                </Button>
+            </Col>
+        );
+    }
 }
 
 const AddEducation = ()=>{

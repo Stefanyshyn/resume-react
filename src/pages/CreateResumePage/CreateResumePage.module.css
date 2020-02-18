@@ -75,16 +75,6 @@ input[type='date']{
     justify-content: center;
     flex-flow: column nowrap;
 }
-.avatarSetting > div:first-child:hover,
-.avatarSetting > div:last-child:hover,
-.personalAdditionToggel:hover{
-    cursor: pointer;
-    color: rgb(56, 56, 255);
-}
-
-.avatarSetting > div:first-child{
-    margin-bottom: 10px;
-}
 .avatarSetting > div >img,.addEmployment > img{
     margin-right:10px;
 }
@@ -100,16 +90,25 @@ input[type='date']{
 .avatar{
     max-width: 130px;
 }
+.avatarSetting > div:first-child:hover,
+.avatarSetting > div:last-child:hover,
 .add{
-    margin-top: 5px;
     margin-top: 5px;
     padding-bottom: 10px;
     padding-top: 10px;
     border-radius: 15px 15px;
 }
+.personalAdditionToggel{
+    border-radius: 15px 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
 .add > img{
     margin-right: 15px;
 }
+.avatarSetting > div:first-child:hover,
+.avatarSetting > div:last-child:hover,
+.personalAdditionToggel:hover,
 .add:hover{
     background-color: #d3e7ff;
 }

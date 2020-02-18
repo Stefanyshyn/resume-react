@@ -16,6 +16,7 @@ class CreateResumePage extends React.Component{
             isAddSkill: false,
             isAddLanguage: false,
 
+            job: '',
             firstname: '',
             lastname: '',
             avatar: '',
@@ -35,6 +36,7 @@ class CreateResumePage extends React.Component{
             //    |
             //    |
             // personal data 
+            profSummary: '',
             employments:[ ] 
             // employer
             // {
@@ -84,6 +86,15 @@ class CreateResumePage extends React.Component{
         }
     }
 
+    addEmploymant = (employment)=>{
+        this.setState({
+            employments:[
+                ...(this.state.employments),
+                employment
+            ]
+        })
+    }
+
     handleClickPersonalAddional = (e) =>{
         let {isPersonalAddition} = this.state;
         this.setState({isPersonalAddition: !isPersonalAddition});
@@ -110,6 +121,11 @@ class CreateResumePage extends React.Component{
         this.setState({isAddLanguage: !isAddLanguage});
     }
 
+    handleChange = (e)=>{
+        let { name, value } = e.target;
+        this.setState({ [name]:value })
+    }
+
     handleSelectFile = (e)=>{
         e.preventDefault();
         let input = document.createElement('input');
@@ -127,12 +143,13 @@ class CreateResumePage extends React.Component{
     }
     handleSubmit = async(e)=>{
         e.preventDefault();
+        console.log(this.state);
         const {
             newAvatar
         } = this.state;
         
-        let urlImage = await Uploader.upload(newAvatar);
-        console.log(urlImage);
+        // let urlImage = await Uploader.upload(newAvatar);
+        // console.log(urlImage);
 
     }
 
@@ -149,7 +166,8 @@ class CreateResumePage extends React.Component{
             handleClickPersonalAddional,handleClickAddEmployment,
             handleClickAddEducation, handleClickAddLink, 
             handleClickAddSkill, handleClickAddLanguage,
-            handleSelectFile, handleSubmit
+            handleSelectFile, handleSubmit,
+            handleChange, addEmploymant
         } = this;
         const{
             PersonalAddionalDetails, AddEmployment,
@@ -164,7 +182,7 @@ class CreateResumePage extends React.Component{
                      <Col className={style.JobAvatar}>
                         <div className={style.JobResume}>
                             <Label>Job title</Label>
-                            <Input type="text" placeholder="e.g. Teacher"></Input>
+                            <Input type="text" name='job' placeholder="e.g. Teacher" onChange={handleChange}></Input>
                         </div>
                         <div className={style.AvatarResume}>
                             <div className={style.avatar}>
@@ -172,7 +190,7 @@ class CreateResumePage extends React.Component{
                                 <Media width='100' height='100' src={avatar} alt='Picture'></Media>
                                 :
                                 <Media width='100' height='100' src='https://image.flaticon.com/icons/svg/1077/1077114.svg' alt='Picture'></Media>
-                            }
+                                }
                             </div>
                             <div className={style.avatarSetting}>
                                 <div onClick={handleSelectFile}>
@@ -182,6 +200,9 @@ class CreateResumePage extends React.Component{
                                 </div>
                                 <div>
                                     <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/748/748023.svg' alt=" - "/>
+{
+    "" //TODO: delete avatar resume
+}
                                     <span>Delete</span>
                                 </div>
                             </div>
@@ -189,27 +210,27 @@ class CreateResumePage extends React.Component{
                     </Col>
                     <Col className={style.nameResume}>
                         <div className={style.Firstname}>
-                            <Label>First Name</Label>
-                            <Input type="text" placeholder="John"></Input>
+                            <Label for="firstname">First Name</Label>
+                            <Input type="text" name="firstname" placeholder="John" onChange={handleChange}></Input>
                         </div>
                         <div className={style.Lastname}>
-                            <Label>Last Name</Label>
-                            <Input type="text" placeholder="e.g. Teacher"></Input>
+                            <Label for='lastname'>Last Name</Label>
+                            <Input type="text" name='lastname' placeholder='Steph' onChange={handleChange}></Input>
                         </div>
                     </Col>
                     <Col className={style.ContactInfoResume}>
                         <div className={style.EmailResume}>
-                            <Label>Email</Label>
-                            <Input type="text" placeholder="example@example.com"></Input>
+                            <Label for='email'>Email</Label>
+                            <Input type="text" name='enail' placeholder="example@example.com" onChange={handleChange} />
                         </div>
                         <div className={style.NumberResume}>
-                            <Label>Phone</Label>
-                            <Input type="text" placeholder="--- -- --- -- ---"></Input>
+                            <Label for='phone' >Phone</Label>
+                            <Input type="text" name='phone' placeholder="--- -- --- -- ---" onChange={handleChange}></Input>
                         </div>
                     </Col>
                     {
                         isPersonalAddition?
-                        <PersonalAddionalDetails/>
+                        <PersonalAddionalDetails handleChange={handleChange}/>
                         :
                         ''
                     }
@@ -231,7 +252,7 @@ class CreateResumePage extends React.Component{
                         </span>
                     </Col>
                     <Col>
-                        <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
+                        <Input rows={4} type="textarea" style={{resize: 'none'}} name='profSummary' onChange={handleChange}></Input>
                     </Col>
                 </FormGroup>       
                 <FormGroup>
@@ -247,13 +268,7 @@ class CreateResumePage extends React.Component{
                             <span>Add employment</span>
                         </Col>
                         :
-                        <React.Fragment>
-                            <AddEmployment/>
-                            <Col className={style.add} onClick={handleClickAddEmployment}>
-                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                                <span>Save employment</span>
-                            </Col>
-                        </React.Fragment>
+                        <AddEmployment addEmploymant={addEmploymant} handleClickAddEmployment={handleClickAddEmployment}/>
                     }
                 </FormGroup>                
                 <FormGroup>
