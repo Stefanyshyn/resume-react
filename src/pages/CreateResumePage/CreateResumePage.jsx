@@ -321,7 +321,6 @@ class CreateResumePage extends React.Component{
                             <AddLanguage addLanguage={addLanguage}/>
                     }
                 </FormGroup>
-
                 <FormGroup>
                     <h1>Hobbies</h1>
                     <Col>

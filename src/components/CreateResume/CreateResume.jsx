@@ -108,11 +108,11 @@ class AddEmployment extends React.Component {
                     <Label for='description'>Description</Label>
                     <Input rows={4} type="textarea" name='description' style={{resize: 'none'}}  onChange={handleChange}></Input>
                 </div>
-                <Button onClick={handleAddEmployment}> 
-                <Col className={style.add}>
+                <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddEmployment}> 
+                    <div className={style.divBtnSave}>
                         <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
                         <span>Save employment</span>
-                    </Col>
+                    </div>
                 </Button>
             </Col>
         );
@@ -188,11 +188,11 @@ class AddEducation extends React.Component {
                     <Input rows={4} type="textarea" style={{resize: 'none'}} 
                         name='description' onChange={handleChange} />
                 </div>
-                <Button onClick={handleAddEducation}> 
-                <Col className={style.add}>
+                <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddEducation}> 
+                    <div className={style.divBtnSave}>
                         <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                        <span>Save employment</span>
-                    </Col>
+                        <span>Save education</span>
+                    </div>
                 </Button>
             </Col>
         );
@@ -239,11 +239,11 @@ class AddLink extends React.Component {
                 <Label for='a'>URL-path</Label>
                 <Input type="text" name='a' onChange={handleChange}></Input>
             </div>
-            <Button onClick={handleAddLink}> 
-                <Col className={style.add}>
+            <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddLink}> 
+                <div className={style.divBtnSave}>
                     <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                    <span>Save employment</span>
-                </Col>
+                    <span>Save link</span>
+                </div>
             </Button>
         </Col>
     );
@@ -290,11 +290,11 @@ class AddSkill extends React.Component {
                     <Label for='degree'>Degree</Label>
                     <Input type="text" name='degree' onChange={handleChange}/>
                 </div>
-                <Button onClick={handleAddSkill}> 
-                    <Col className={style.add}>
+                <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddSkill}> 
+                    <div className={style.divBtnSave}>
                         <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                        <span>Save employment</span>
-                    </Col>
+                        <span>Save skill</span>
+                    </div>
                 </Button>
             </Col>
         );
@@ -339,11 +339,11 @@ class AddLanguage extends React.Component {
                     <Label for='level'>Level</Label>
                     <Input type="text" name='level' onChange={handleChange}/>
                 </div>
-                <Button onClick={handleAddLanguage}> 
-                    <Col className={style.btnSave}>
+                <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddLanguage}> 
+                    <div className={style.divBtnSave}>
                         <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
                         <span>Save language</span>
-                    </Col>
+                    </div>
                 </Button>
             </Col>
         );
