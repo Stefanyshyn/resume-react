@@ -1,5 +1,5 @@
 import React from 'react';
-import { Media, Label, Input, Col, Form, Button } from 'reactstrap';
+import { Media, Label, Input, Col, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './CreateResume.module.css';
 
@@ -44,15 +44,6 @@ class AddEmployment extends React.Component {
     constructor(props){
         super(props);
         this.state={
-             // employer
-            // {
-            //     job:'',
-            //     employer: '',
-            //     startDate:'',
-            //     endDate:'',
-            //     city: '',
-            //     description: ''
-            // }
             job:'',
             employer:'',
             startDate: '',
@@ -65,7 +56,7 @@ class AddEmployment extends React.Component {
             let { name, value } = e.target;
             this.setState({ [name]:value })
     }
-    handleSubmitAddEmployment = (e) => {
+    handleAddEmployment = (e) => {
         const {
             job, employer,
             startDate, endDate,
@@ -85,7 +76,7 @@ class AddEmployment extends React.Component {
 
     render = () => {
         const {
-            handleChange, handleSubmitAddEmployment
+            handleChange, handleAddEmployment
         } = this;
 
         return (
@@ -117,7 +108,7 @@ class AddEmployment extends React.Component {
                     <Label for='description'>Description</Label>
                     <Input rows={4} type="textarea" name='description' style={{resize: 'none'}}  onChange={handleChange}></Input>
                 </div>
-                <Button onClick={handleSubmitAddEmployment}> 
+                <Button onClick={handleAddEmployment}> 
                 <Col className={style.add}>
                         <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
                         <span>Save employment</span>
@@ -128,53 +119,138 @@ class AddEmployment extends React.Component {
     }
 }
 
-const AddEducation = ()=>{
-    return (
-        <Col>
-        <div>
-            <span>Establishment</span>
-            <Input type="text"></Input>
-        </div>
-        <div>
-            <span>Degree</span>
-            <Input type="text"></Input>
-        </div>
-        <div>
-            <span>Star and End Date</span>
-            <div className={style.StartEndDate}>
-                <div className={style.StartDate}>
-                    <Input type="date"></Input>
-                </div>    
-                <div className={style.EndDate}>
-                    <Input type="date"></Input>
-                </div>    
-           </div>
-        </div>
-        <div>
-            <span>City</span>
-            <Input type="text"></Input>
-        </div>
-        <div>
-            <span>Description</span>
-            <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
-        </div>
-    </Col>
-    );
+class AddEducation extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            establishment:'',
+            degree: '',
+            startDate:'',
+            endDate:'',
+            city: '',
+            description: ''
+        }
+    }
+    handleChange = (e)=>{
+        let { name, value } = e.target;
+        this.setState({ [name]:value })
+    }
+    handleAddEducation = ()=>{
+        const {
+            establishment, degree,
+            startDate, endDate,
+            city, description
+        } = this.state;
+        const {addEducation} = this.props;
+        let education = {
+            establishment, 
+            degree,
+            startDate,
+            endDate,
+            city,
+            description
+        }
+        addEducation(education);
+
+    }
+
+    render = ()=>{
+        const {
+            handleAddEducation, handleChange
+        } = this;
+
+        return (
+            <Col>
+                <div>
+                    <Label for='establishment'>Establishment</Label>
+                    <Input type="text" name='establishment' onChange={handleChange}></Input>
+                </div>
+                <div>
+                    <Label for='degree'>Degree</Label>
+                    <Input type="text" name='degree' onChange={handleChange}></Input>
+                </div>
+                <div>
+                    <span>Star and End Date</span>
+                    <div className={style.StartEndDate}>
+                        <div className={style.StartDate}>
+                            <Input type="date" name='startDate' onChange={handleChange}></Input>
+                        </div>    
+                        <div className={style.EndDate}>
+                            <Input type="date" name='endDate' onChange={handleChange}></Input>
+                        </div>    
+                </div>
+                </div>
+                <div>
+                    <Label for='city'>City</Label>
+                    <Input type="text" name='city' onChange={handleChange}></Input>
+                </div>
+                <div>
+                    <Label for='description'>Description</Label>
+                    <Input rows={4} type="textarea" style={{resize: 'none'}} 
+                        name='description' onChange={handleChange} />
+                </div>
+                <Button onClick={handleAddEducation}> 
+                <Col className={style.add}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                        <span>Save employment</span>
+                    </Col>
+                </Button>
+            </Col>
+        );
+    }
 }
 
-const AddLink = ()=>{
-    return (
+class AddLink extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            title:'',
+            PathURL: '',
+        }
+    }
+    handleChange = (e)=>{
+        let { name, value } = e.target;
+        this.setState({ [name]:value })
+    }
+    handleAddLink = ()=>{
+        const {
+            title, PathURL,
+        } = this.state;
+
+        const {addLink} = this.props;
+
+        let link = {
+            title, 
+            PathURL,
+        }
+        addLink(link);
+    }
+
+    render = ()=>{
+        const {
+            handleAddLink, handleChange
+        } = this;
+    
+        return (
         <Col>
             <div>
-                <span>Title</span>
-                <Input type="text"></Input>
+                <Label for='a'>Title</Label>
+                <Input type="text" name='a' onChange={handleChange}></Input>
             </div>
             <div>
-                <span>URL-path</span>
-                <Input type="text"></Input>
+                <Label for='a'>URL-path</Label>
+                <Input type="text" name='a' onChange={handleChange}></Input>
             </div>
+            <Button onClick={handleAddLink}> 
+                <Col className={style.add}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                        <span>Save employment</span>
+                    </Col>
+                </Button>
         </Col>
     );
+
+    }
 }
 
 const AddSkill = ()=>{

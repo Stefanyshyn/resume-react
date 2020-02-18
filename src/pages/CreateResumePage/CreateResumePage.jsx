@@ -37,35 +37,9 @@ class CreateResumePage extends React.Component{
             //    |
             // personal data 
             profSummary: '',
-            employments:[ ] 
-            // employer
-            // {
-            //     job:'',
-            //     employer: '',
-            //     startDate:'',
-            //     endDate:'',
-            //     city: '',
-            //     description: ''
-            // }
-            ,
-            educations:[]
-            // education
-            // {
-            //     establishment:'',
-            //     degree: '',
-            //     startDate:'',
-            //     endDate:'',
-            //     city: '',
-            //     description: ''
-            // }
-            ,
-            links:[]
-            // link
-            // {
-            //     title: '',
-            //     PathURL: ''
-            // }
-            ,
+            employments:[ ] ,
+            educations:[] ,
+            links:[] ,
             skills:[]
             // skill
             // {
@@ -91,6 +65,22 @@ class CreateResumePage extends React.Component{
             employments:[
                 ...(this.state.employments),
                 employment
+            ]
+        })
+    }
+    addEducation = (education)=>{
+        this.setState({
+            educations:[
+                ...(this.state.educations),
+                education
+            ]
+        })
+    }
+    addLink = (link)=>{
+        this.setState({
+            links:[
+                ...(this.state.links),
+                link
             ]
         })
     }
@@ -167,7 +157,9 @@ class CreateResumePage extends React.Component{
             handleClickAddEducation, handleClickAddLink, 
             handleClickAddSkill, handleClickAddLanguage,
             handleSelectFile, handleSubmit,
-            handleChange, addEmploymant
+            handleChange, 
+            addEmploymant, addEducation,
+            addLink
         } = this;
         const{
             PersonalAddionalDetails, AddEmployment,
@@ -228,8 +220,7 @@ class CreateResumePage extends React.Component{
                             <Input type="text" name='phone' placeholder="--- -- --- -- ---" onChange={handleChange}></Input>
                         </div>
                     </Col>
-                    {
-                        isPersonalAddition?
+                    {isPersonalAddition?
                         <PersonalAddionalDetails handleChange={handleChange}/>
                         :
                         ''
@@ -268,7 +259,7 @@ class CreateResumePage extends React.Component{
                             <span>Add employment</span>
                         </Col>
                         :
-                        <AddEmployment addEmploymant={addEmploymant} handleClickAddEmployment={handleClickAddEmployment}/>
+                        <AddEmployment addEmploymant={addEmploymant}/>
                     }
                 </FormGroup>                
                 <FormGroup>
@@ -279,21 +270,14 @@ class CreateResumePage extends React.Component{
                         </span>
                     </Col>
                     {!isAddEducation?
-
-                        <Col className={style.add} onClick={handleClickAddEducation   }>
+                        <Col className={style.add} onClick={handleClickAddEducation}>
                             <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
                             <span>Add education</span>
                         </Col>
                         :
-                        <React.Fragment>
-                            <AddEducation/>
-                            <Col className={style.add} onClick={handleClickAddEducation   }>
-                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                                <span>Save education</span>
-                            </Col>
-                        </React.Fragment>
+                        <AddEducation addEducation={addEducation}/>
                     }
-                </FormGroup>               
+                </FormGroup>
                 <FormGroup>
                     <h1>Links</h1>
                     <Col className={style.TitleArticle}>
@@ -308,13 +292,7 @@ class CreateResumePage extends React.Component{
                             <span>Add link</span>
                         </Col>
                         :
-                        <React.Fragment>
-                            <AddLink/>
-                            <Col className={style.add} onClick={handleClickAddLink}>
-                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                                <span>Save link</span>
-                            </Col>
-                        </React.Fragment>
+                            <AddLink addLink={addLink}/>
                     }
                 </FormGroup>
                 <FormGroup>
