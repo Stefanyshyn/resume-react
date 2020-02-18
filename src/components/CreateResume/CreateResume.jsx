@@ -118,7 +118,6 @@ class AddEmployment extends React.Component {
         );
     }
 }
-
 class AddEducation extends React.Component {
     constructor(props){
         super(props);
@@ -199,7 +198,6 @@ class AddEducation extends React.Component {
         );
     }
 }
-
 class AddLink extends React.Component {
     constructor(props){
         super(props);
@@ -243,45 +241,115 @@ class AddLink extends React.Component {
             </div>
             <Button onClick={handleAddLink}> 
                 <Col className={style.add}>
-                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                        <span>Save employment</span>
-                    </Col>
-                </Button>
+                    <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                    <span>Save employment</span>
+                </Col>
+            </Button>
         </Col>
     );
 
     }
 }
+class AddSkill extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            skill:'',
+            degree: '',
+        }
+    }
+    handleChange = (e)=>{
+        let { name, value } = e.target;
+        this.setState({ [name]:value })
+    }
+    handleAddSkill = ()=>{
+        const {
+            skill, degree,
+        } = this.state;
 
-const AddSkill = ()=>{
-    return (
-        <Col>
-            <div>
-                <span>Skill</span>
-                <Input type="text"></Input>
-            </div>
-            <div>
-                <span>Degree</span>
-                <Input type="text"></Input>
-            </div>
-        </Col>
-    );
+        const {addSkill} = this.props;
+
+        let _skill = {
+            skill, 
+            degree
+        }
+        addSkill(_skill);
+    }
+    render = ()=>{
+        const {
+            handleAddSkill, handleChange
+        } = this;
+    
+        return (
+            <Col>
+                <div>
+                    <Label for='skill'>Skill</Label>
+                    <Input type="text" name='skill' onChange={handleChange}/>
+                </div>
+                <div>
+                    <Label for='degree'>Degree</Label>
+                    <Input type="text" name='degree' onChange={handleChange}/>
+                </div>
+                <Button onClick={handleAddSkill}> 
+                    <Col className={style.add}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                        <span>Save employment</span>
+                    </Col>
+                </Button>
+            </Col>
+        );
+    }
+}
+class AddLanguage extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            language:'',
+            level: '',
+        }
+    }
+    handleChange = (e)=>{
+        let { name, value } = e.target;
+        this.setState({ [name]:value })
+    }
+    handleAddLanguage = ()=>{
+        const {
+            language, level,
+        } = this.state;
+
+        const {addLanguage} = this.props;
+
+        let _language = {
+            language, 
+            level,
+        }
+        addLanguage(_language);
+    }
+    render = ()=>{
+        const {
+            handleAddLanguage, handleChange
+        } = this;
+        return (
+            <Col>
+                <div>
+                    <Label for='language'>Language</Label>
+                    <Input type="text" name='language' onChange={handleChange}/>
+                </div>
+                <div>
+                    <Label for='level'>Level</Label>
+                    <Input type="text" name='level' onChange={handleChange}/>
+                </div>
+                <Button onClick={handleAddLanguage}> 
+                    <Col className={style.add}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
+                        <span>Save language</span>
+                    </Col>
+                </Button>
+            </Col>
+        );
+    }
 }
 
-const AddLanguage = ()=>{
-    return (
-        <Col>
-            <div>
-                <span>Language</span>
-                <Input type="text"></Input>
-            </div>
-            <div>
-                <span>Level</span>
-                <Input type="text"></Input>
-            </div>
-        </Col>
-    );
-}
 export {
     PersonalAddionalDetails, AddEmployment,
     AddEducation, AddLink,

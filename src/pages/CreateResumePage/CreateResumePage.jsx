@@ -34,26 +34,13 @@ class CreateResumePage extends React.Component{
             // /  |  \
             //    |
             //    |
-            //    |
             // personal data 
             profSummary: '',
             employments:[ ] ,
             educations:[] ,
             links:[] ,
-            skills:[]
-            // skill
-            // {
-            //     skill: '',
-            //     degree: ''
-            // }
-            ,
-            languages:[]
-            // language
-            // {
-            //     language: '',
-            //     level: ''
-            // }
-            ,
+            skills:[] ,
+            languages:[] ,
             hobbies:''
             ,
 
@@ -81,6 +68,22 @@ class CreateResumePage extends React.Component{
             links:[
                 ...(this.state.links),
                 link
+            ]
+        })
+    }
+    addSkill = (skill)=>{
+        this.setState({
+            skills:[
+                ...(this.state.skills),
+                skill
+            ]
+        })
+    }
+    addLanguage = (language)=>{
+        this.setState({
+            languages:[
+                ...(this.state.languages),
+                language
             ]
         })
     }
@@ -159,7 +162,7 @@ class CreateResumePage extends React.Component{
             handleSelectFile, handleSubmit,
             handleChange, 
             addEmploymant, addEducation,
-            addLink
+            addLink, addSkill
         } = this;
         const{
             PersonalAddionalDetails, AddEmployment,
@@ -303,13 +306,7 @@ class CreateResumePage extends React.Component{
                             <span>Add skill</span>
                         </Col>
                         :
-                        <React.Fragment>
-                            <AddSkill/>
-                            <Col className={style.add} onClick={handleClickAddSkill}>
-                                <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/482/482459.svg' alt=" o "/>
-                                <span>Save skill</span>
-                            </Col>
-                        </React.Fragment>
+                        <AddSkill addSkill={addSkill}/>
                     }
                 </FormGroup>
                 <FormGroup>
@@ -330,13 +327,12 @@ class CreateResumePage extends React.Component{
                         </React.Fragment>
                     }
                 </FormGroup>
+
                 <FormGroup>
                     <h1>Hobbies</h1>
                     <Col>
-                        <span>
-                            What do you like do?
-                        </span>
-                        <Input rows={4} type="textarea" style={{resize: 'none'}}></Input>
+                        <Label for='hobbies'>What do you like do?</Label>
+                        <Input rows={4} type="textarea" name='hobbies' style={{resize: 'none'}} onChange={handleChange}></Input>
                     </Col>
                 </FormGroup>
                 <FormGroup >
