@@ -1,0 +1,35 @@
+.divBorder{
+    border-radius: 0.25rem;
+    border: solid 2px gray;
+    padding: 5px 10px;
+    display: flex;
+    
+}
+.divBody{
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;    
+    margin-right: 20px;
+}
+.Title{
+    margin-bottom: 10px;
+}
+.itemSetting{
+    display: flex;
+    justify-content: center;
+}
+.EditItem{
+    align-self: center;
+}
+
+@media (max-width: 330px){
+    .divBody{
+        flex-direction: column;
+        align-items: flex-start;
+        margin-right: 0;
+    }
+    .itemSetting{
+        align-self:center ;
+    }
+}

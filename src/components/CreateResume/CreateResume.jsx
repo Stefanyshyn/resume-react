@@ -3,37 +3,41 @@ import { Media, Label, Input, Col, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './CreateResume.module.css';
 
-const PersonalAddionalDetails = ({handleChange})=>{
+const PersonalAddionalDetails = ({handleChange, resume})=>{
+    const {
+        country, city, address, nationality, birthPlace, birthday
+    } = resume;
+
     return (
         <div>
             <Col className={style.AddessResume}>
                 <div className={style.CountryResume}>
                     <Label for='country'>Country</Label>
-                    <Input type="text" name='country' placeholder="Ukraine" onChange={handleChange}></Input>
+                    <Input type="text" name='country' value={country} placeholder="Ukraine" onChange={handleChange}></Input>
                 </div>
                 <div className={style.CityResume}>
                     <Label for='city'>City</Label>
-                    <Input type="text" name='city' placeholder="Ternopil"></Input>
+                    <Input type="text" name='city' value={city} placeholder="Ternopil"  onChange={handleChange}></Input>
                 </div>
             </Col>
             <Col className={style.AddessResume}>
                 <div className={style.Address}>
                     <Label for='address'>Address</Label>
-                    <Input type="text" name='address' onChange={handleChange}></Input>
+                    <Input type="text" name='address' value={address} onChange={handleChange}></Input>
                 </div>
                 <div className={style.Nationality}>
                     <Label for='nationality'>Nationality</Label>
-                    <Input type="text" name='nationality' onChange={handleChange}></Input>
+                    <Input type="text" name='nationality' value={nationality} onChange={handleChange}></Input>
                 </div>
             </Col>
             <Col className={style.BirthReusme}>
                 <div className={style.PlaceBirth}>
                     <Label for='birthPleca'>Place Of Birth</Label>
-                    <Input type="text" name='birthPleca' onChange={handleChange}></Input>
+                    <Input type="text" name='birthPleca' value={birthPlace} onChange={handleChange}></Input>
                 </div>
                 <div className={style.DateBirth}>
                     <Label for='birthday'>Date Of Birth</Label>
-                    <Input type="date" name='birthday' onChange={handleChange}></Input>
+                    <Input type="date" name='birthday' value={birthday} onChange={handleChange}></Input>
                 </div>
             </Col>
         </div>

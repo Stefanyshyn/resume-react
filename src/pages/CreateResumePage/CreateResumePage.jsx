@@ -7,6 +7,7 @@ import Uploader from '../../utils/uploader';
 import ResumeModel from '../../models/resume';
 import UserModel from '../../models/user-front';
 import uuid from 'uuid/v4';
+import ItemHistoryResume from '../../components/Resume/ItemHistoryResume';
 
 const initResume = (resume)=>{
     if(resume){
@@ -25,7 +26,7 @@ const initResume = (resume)=>{
             city: '',
             address: '',
             nationality: '',
-            birthPleca: '',
+            birthPlace: '',
             birthday:'',
             profSummary: '',
             employments:[ ] ,
@@ -147,6 +148,10 @@ class CreateResumePage extends React.Component{
         input.click();
     }
     
+    handleDeleteAvatar = (e)=>{
+        this.setState({avatar:'', newAvatar: ''})
+    }
+
     handleSubmit = async(e)=>{
         e.preventDefault();
         const {
@@ -158,7 +163,7 @@ class CreateResumePage extends React.Component{
         const {
             id, job, firstname, lastname, newAvatar,
             email, phone, country, city, address,
-            nationality, birthPleca, birthday, profSummary, employments,
+            nationality, birthPlace, birthday, profSummary, employments,
             educations, links, skills, languages, hobbies
         } = this.state;
 
@@ -177,7 +182,7 @@ class CreateResumePage extends React.Component{
             city,
             address,
             nationality,
-            birthPleca,
+            birthPlace,
             birthday,
             profSummary,
             employments,
@@ -199,7 +204,7 @@ class CreateResumePage extends React.Component{
         const {
             id, job, firstname, lastname, avatar,
             email, phone, country, city, address,
-            nationality, birthPleca, birthday, profSummary, employments,
+            nationality, birthPlace, birthday, profSummary, employments,
             educations, links, skills, languages, hobbies
         } = this.state;
         const { 
@@ -211,8 +216,8 @@ class CreateResumePage extends React.Component{
             handleClickPersonalAddional,handleClickAddEmployment,
             handleClickAddEducation, handleClickAddLink, 
             handleClickAddSkill, handleClickAddLanguage,
-            handleSelectFile, handleSubmit,
-            handleChange, 
+            handleSelectFile, handleDeleteAvatar,
+            handleSubmit, handleChange, 
             addEmploymant, addEducation,
             addLink, addSkill, addLanguage
         } = this;
@@ -245,11 +250,8 @@ class CreateResumePage extends React.Component{
                                     <span>Edit photo</span>
                                     <div className={style.FocusDiv}></div>
                                 </div>
-                                <div>
+                                <div onClick={handleDeleteAvatar}>
                                     <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/748/748023.svg' alt=" - "/>
-{
-    "" //TODO: delete avatar resume
-}
                                     <span>Delete</span>
                                 </div>
                             </div>
@@ -276,7 +278,7 @@ class CreateResumePage extends React.Component{
                         </div>
                     </Col>
                     {isPersonalAddition?
-                        <PersonalAddionalDetails handleChange={handleChange}/>
+                        <PersonalAddionalDetails resume={{country, city, address, nationality, birthPlace, birthday}} handleChange={handleChange}/>
                         :
                         ''
                     }
@@ -308,6 +310,10 @@ class CreateResumePage extends React.Component{
                             Include your relevant experience and dates in this section. List your most recent position first.
                         </span>
                     </Col>
+                    <Col>
+                        <ItemHistoryResume></ItemHistoryResume>
+                    </Col>
+
                     {!isAddEmployment?
                         <Col className={style.add} onClick={handleClickAddEmployment}>
                             <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
