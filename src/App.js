@@ -59,7 +59,7 @@ function App() {
           exact
           render={(props) => (
             <MainLayout {...props}>
-               <CreateResumePage {...props}/>
+               <CreateResumePage resume={{id: "5d6fc2ed-b826-414c-8815-8bee03b7d67f"}} {...props}/>
             </MainLayout>
           )}
         />

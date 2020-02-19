@@ -1,21 +1,19 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './CreateResumePage.module.css';
-import { Form, FormGroup, Label, Input, Col, Media } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Col, Media, Spinner } from 'reactstrap';
 import * as CreateResume from '../../components/CreateResume';
 import Uploader from '../../utils/uploader';
-class CreateResumePage extends React.Component{ 
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            isPersonalAddition: false,
-            isAddEmployment: false,
-            isAddEducation: false,
-            isAddLink: false,
-            isAddSkill: false,
-            isAddLanguage: false,
+import ResumeModel from '../../models/resume';
+import UserModel from '../../models/user-front';
+import uuid from 'uuid/v4';
 
+const initResume = (resume)=>{
+    if(resume){
+        return {...ResumeModel.getOne({...resume})}
+    }else 
+        return {
+            id: uuid(),
             job: '',
             firstname: '',
             lastname: '',
@@ -29,12 +27,6 @@ class CreateResumePage extends React.Component{
             nationality: '',
             birthPleca: '',
             birthday:'',
-            //   /|\
-            //  / | \
-            // /  |  \
-            //    |
-            //    |
-            // personal data 
             profSummary: '',
             employments:[ ] ,
             educations:[] ,
@@ -42,9 +34,29 @@ class CreateResumePage extends React.Component{
             skills:[] ,
             languages:[] ,
             hobbies:''
-            ,
-
         }
+}
+
+class CreateResumePage extends React.Component{ 
+    
+    constructor(props){
+        super(props);
+
+        this.user = UserModel.getCurrentUser();
+        
+        this.resume = this.props.resume;
+
+        this.state = {
+            isPersonalAddition: false,
+            isAddEmployment: false,
+            isAddEducation: false,
+            isAddLink: false,
+            isAddSkill: false,
+            isAddLanguage: false,
+            isSaveResume: false,
+            ...initResume(this.resume)
+        }
+        console.log(this.state)
     }
 
     addEmploymant = (employment)=>{
@@ -134,26 +146,66 @@ class CreateResumePage extends React.Component{
         
         input.click();
     }
+    
     handleSubmit = async(e)=>{
         e.preventDefault();
-        console.log(this.state);
         const {
-            newAvatar
+            isSaveResume
         } = this.state;
-        
-        // let urlImage = await Uploader.upload(newAvatar);
-        // console.log(urlImage);
 
+        this.setState({isSaveResume:!isSaveResume})
+        
+        const {
+            id, job, firstname, lastname, newAvatar,
+            email, phone, country, city, address,
+            nationality, birthPleca, birthday, profSummary, employments,
+            educations, links, skills, languages, hobbies
+        } = this.state;
+
+        let urlImage = await Uploader.upload(newAvatar);
+        
+        let resume = {
+            id,
+            idUser: this.user.id,
+            job,
+            firstname,
+            lastname,
+            avatar: urlImage,
+            email,
+            phone,
+            country,
+            city,
+            address,
+            nationality,
+            birthPleca,
+            birthday,
+            profSummary,
+            employments,
+            educations,
+            links,
+            skills,
+            languages,
+            hobbies            
+        }
+     
+        if(this.resume)
+            ResumeModel.update({id:resume.id}, resume);
+        else 
+            ResumeModel.add(resume);
+        this.setState({isSaveResume:isSaveResume})
     }
 
     render = ()=> {
         const {
-            avatar
+            id, job, firstname, lastname, avatar,
+            email, phone, country, city, address,
+            nationality, birthPleca, birthday, profSummary, employments,
+            educations, links, skills, languages, hobbies
         } = this.state;
         const { 
             isAddEducation,isPersonalAddition,
             isAddEmployment, isAddLink, 
-            isAddSkill, isAddLanguage 
+            isAddSkill, isAddLanguage, isSaveResume 
         } = this.state;
         const { 
             handleClickPersonalAddional,handleClickAddEmployment,
@@ -177,7 +229,7 @@ class CreateResumePage extends React.Component{
                      <Col className={style.JobAvatar}>
                         <div className={style.JobResume}>
                             <Label>Job title</Label>
-                            <Input type="text" name='job' placeholder="e.g. Teacher" onChange={handleChange}></Input>
+                            <Input type="text" name='job' value={job} placeholder="e.g. Teacher" onChange={handleChange}></Input>
                         </div>
                         <div className={style.AvatarResume}>
                             <div className={style.avatar}>
@@ -206,21 +258,21 @@ class CreateResumePage extends React.Component{
                     <Col className={style.nameResume}>
                         <div className={style.Firstname}>
                             <Label for="firstname">First Name</Label>
-                            <Input type="text" name="firstname" placeholder="John" onChange={handleChange}></Input>
+                            <Input type="text" name="firstname" value={firstname} placeholder="John" onChange={handleChange}></Input>
                         </div>
                         <div className={style.Lastname}>
                             <Label for='lastname'>Last Name</Label>
-                            <Input type="text" name='lastname' placeholder='Steph' onChange={handleChange}></Input>
+                            <Input type="text" name='lastname' value={lastname} placeholder='Steph' onChange={handleChange}></Input>
                         </div>
                     </Col>
                     <Col className={style.ContactInfoResume}>
                         <div className={style.EmailResume}>
                             <Label for='email'>Email</Label>
-                            <Input type="text" name='enail' placeholder="example@example.com" onChange={handleChange} />
+                            <Input type="text" name='email' value={email} placeholder="example@example.com" onChange={handleChange} />
                         </div>
                         <div className={style.NumberResume}>
                             <Label for='phone' >Phone</Label>
-                            <Input type="text" name='phone' placeholder="--- -- --- -- ---" onChange={handleChange}></Input>
+                            <Input type="text" name='phone' value={phone} placeholder="--- -- --- -- ---" onChange={handleChange}></Input>
                         </div>
                     </Col>
                     {isPersonalAddition?
@@ -246,7 +298,7 @@ class CreateResumePage extends React.Component{
                         </span>
                     </Col>
                     <Col>
-                        <Input rows={4} type="textarea" style={{resize: 'none'}} name='profSummary' onChange={handleChange}></Input>
+                        <Input className='form=control' rows={4} type="textarea" style={{resize: 'none'}} value={profSummary} name='profSummary' onChange={handleChange}></Input>
                     </Col>
                 </FormGroup>       
                 <FormGroup>
@@ -325,13 +377,18 @@ class CreateResumePage extends React.Component{
                     <h1>Hobbies</h1>
                     <Col>
                         <Label for='hobbies'>What do you like do?</Label>
-                        <Input rows={4} type="textarea" name='hobbies' style={{resize: 'none'}} onChange={handleChange}></Input>
+                        <Input rows={4} type="textarea" name='hobbies' style={{resize: 'none'}} value={hobbies} onChange={handleChange}></Input>
                     </Col>
                 </FormGroup>
                 <FormGroup >
                     <Col>
                         <div className={style.btnSave + " " + style.Input}>
                             <Input className="btn btn-dark" value="Save" name="save" type="submit"/>
+                            {
+                                isSaveResume?
+                                <Spinner width='44px' color='gray' ></Spinner>
+                                :''
+                            }
                         </div>
                     </Col>
                 </FormGroup>
