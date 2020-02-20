@@ -1,9 +1,7 @@
 .divBorder{
     border-radius: 0.25rem;
     border: solid 2px gray;
-    padding: 5px 10px;
-    display: flex;
-    
+    padding: 5px 10px;    
 }
 .divBody{
     display: flex;
@@ -32,4 +30,23 @@
     .itemSetting{
         align-self:center ;
     }
+}
+.displayInfo{
+    display: flex;
+}
+
+.containerSetting{
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    position: relative;
+}
+.Setting{
+    color: blanchedalmond;
+    background:rgb(52, 58, 64);
+    position: absolute;
+    z-index: 99999;
+    top: 24px;
+    left:  -24px;
+    padding: 5px 10px;
+    border-radius: 0.25rem;
 }

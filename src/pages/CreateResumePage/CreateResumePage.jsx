@@ -311,7 +311,7 @@ class CreateResumePage extends React.Component{
                         </span>
                     </Col>
                     <Col>
-                        <ItemHistoryResume></ItemHistoryResume>
+                        <ItemHistoryResume EditComponet={AddEmployment}></ItemHistoryResume>
                     </Col>
 
                     {!isAddEmployment?
