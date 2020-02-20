@@ -12,7 +12,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 class ProfilePage extends React.Component{
     constructor(props){
         super(props);
-        console.log(props);
         this.user = {
             profile:{
                 name: faker.name.firstName(2),

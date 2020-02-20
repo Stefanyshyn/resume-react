@@ -57,11 +57,12 @@ class CreateResumePage extends React.Component{
             isSaveResume: false,
             ...initResume(this.resume)
         }
-        console.log(this.state)
     }
 
     addEmploymant = (employment)=>{
+        let {isAddEmployment} = this.state;
         this.setState({
+            isAddEmployment: !isAddEmployment,
             employments:[
                 ...(this.state.employments),
                 employment
@@ -69,7 +70,9 @@ class CreateResumePage extends React.Component{
         })
     }
     addEducation = (education)=>{
+        let {isAddEducation} = this.state;
         this.setState({
+            isAddEducation: !isAddEducation,
             educations:[
                 ...(this.state.educations),
                 education
@@ -77,7 +80,9 @@ class CreateResumePage extends React.Component{
         })
     }
     addLink = (link)=>{
+        let {isAddLink} = this.state;
         this.setState({
+            isAddLink: !isAddLink,
             links:[
                 ...(this.state.links),
                 link
@@ -85,7 +90,9 @@ class CreateResumePage extends React.Component{
         })
     }
     addSkill = (skill)=>{
+        let {isAddSkill} = this.state;
         this.setState({
+            isAddSkill: !isAddSkill,
             skills:[
                 ...(this.state.skills),
                 skill
@@ -93,7 +100,9 @@ class CreateResumePage extends React.Component{
         })
     }
     addLanguage = (language)=>{
+        let {isAddLanguage} = this.state;
         this.setState({
+            isAddLanguage: !isAddLanguage,
             languages:[
                 ...(this.state.languages),
                 language
@@ -310,8 +319,14 @@ class CreateResumePage extends React.Component{
                             Include your relevant experience and dates in this section. List your most recent position first.
                         </span>
                     </Col>
-                    <Col>
-                        <ItemHistoryResume EditComponet={AddEmployment}></ItemHistoryResume>
+                    <Col className={style.containerEmployment}>
+                        {   
+                            employments.map(employment => {
+                                return (
+                                    <ItemHistoryResume employment={employment} EditComponet={AddEmployment}></ItemHistoryResume>                                
+                                );
+                            })
+                        }
                     </Col>
 
                     {!isAddEmployment?

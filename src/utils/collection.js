@@ -47,8 +47,6 @@ class Collection{
 
         this._saveItems();
 
-        console.log(predicate, source);
-
         return doc;
     }
     
