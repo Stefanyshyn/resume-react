@@ -6,48 +6,19 @@ import * as CreateResume from '../../components/CreateResume';
 import Uploader from '../../utils/uploader';
 import ResumeModel from '../../models/resume';
 import UserModel from '../../models/user-front';
-import uuid from 'uuid/v4';
 import ItemHistoryResume from '../../components/Resume/ItemHistoryResume';
-
-const initResume = (resume)=>{
-    if(resume){
-        return {...ResumeModel.getOne({...resume})}
-    }else 
-        return {
-            id: uuid(),
-            job: '',
-            firstname: '',
-            lastname: '',
-            avatar: '',
-            newAvatar:'',
-            email:'',
-            phone:'',
-            country: '',
-            city: '',
-            address: '',
-            nationality: '',
-            birthPlace: '',
-            birthday:'',
-            profSummary: '',
-            employments:[ ] ,
-            educations:[] ,
-            links:[] ,
-            skills:[] ,
-            languages:[] ,
-            hobbies:''
-        }
-}
+import init from '../../models/initialization.js';
 
 class CreateResumePage extends React.Component{ 
     
     constructor(props){
         super(props);
-
         this.user = UserModel.getCurrentUser();
         
         this.resume = this.props.resume;
 
         this.state = {
+            indexEmployment: -1,
             isPersonalAddition: false,
             isAddEmployment: false,
             isAddEducation: false,
@@ -55,18 +26,25 @@ class CreateResumePage extends React.Component{
             isAddSkill: false,
             isAddLanguage: false,
             isSaveResume: false,
-            ...initResume(this.resume)
+            activeNumber:{
+              employment:-1,  
+            },
+
+            ...(init.Resume(this.resume))
         }
     }
 
-    addEmploymant = (employment)=>{
+    addEmployment = (employment)=>{
         let {isAddEmployment} = this.state;
+        
         this.setState({
             isAddEmployment: !isAddEmployment,
+            indexEmployment: (this.state.employments.length)-1,
             employments:[
                 ...(this.state.employments),
                 employment
-            ]
+            ],
+
         })
     }
     addEducation = (education)=>{
@@ -110,14 +88,32 @@ class CreateResumePage extends React.Component{
         })
     }
 
+    handleClickEdit = (nameHistory, id, itemHistory)=>{
+        console.log(id)
+        this.setState(
+            {
+                [nameHistory+'s']: this.state[nameHistory+'s'].map((item)=>{
+                    if(item.id === itemHistory.id)
+                     return itemHistory;
+                     return item;
+                }),
+                activeNumber:
+                {
+                    [nameHistory]:id 
+                },
+            }
+        )
+    }
     handleClickPersonalAddional = (e) =>{
         let {isPersonalAddition} = this.state;
         this.setState({isPersonalAddition: !isPersonalAddition});
     }
-
     handleClickAddEmployment = (e) =>{
-        let {isAddEmployment} = this.state;
-        this.setState({isAddEmployment: !isAddEmployment});    
+        let {employments} = this.state;
+        this.setState({
+            activeNumber:{employment:this.state.employments.length},
+            employments: [...employments, init.Employment()]})
+
     }
     handleClickAddEducation = (e) =>{
         let {isAddEducation} = this.state;
@@ -227,15 +223,16 @@ class CreateResumePage extends React.Component{
             handleClickAddSkill, handleClickAddLanguage,
             handleSelectFile, handleDeleteAvatar,
             handleSubmit, handleChange, 
-            addEmploymant, addEducation,
-            addLink, addSkill, addLanguage
+            addEmployment, addEducation,
+            addLink, addSkill, addLanguage,
+            handleClickEdit
         } = this;
         const{
             PersonalAddionalDetails, AddEmployment,
             AddEducation, AddLink,
             AddSkill, AddLanguage
         } = CreateResume;
-        
+        console.log(employments)
         return (
             <Form name='resumeForm' onSubmit={handleSubmit}>
                 <FormGroup>
@@ -321,22 +318,20 @@ class CreateResumePage extends React.Component{
                     </Col>
                     <Col className={style.containerEmployment}>
                         {   
-                            employments.map(employment => {
+                            employments.map((employment,index) => {
                                 return (
-                                    <ItemHistoryResume employment={employment} EditComponet={AddEmployment}></ItemHistoryResume>                                
+                                    <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'employment')} 
+                                    key={Math.random()} id={index} isEdit={this.state.activeNumber.employment === index?true:false} 
+                                    addHistory={addEmployment} itemHistory={employment} 
+                                    EditComponet={AddEmployment}></ItemHistoryResume>
                                 );
                             })
                         }
                     </Col>
-
-                    {!isAddEmployment?
-                        <Col className={style.add} onClick={handleClickAddEmployment}>
-                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                            <span>Add employment</span>
-                        </Col>
-                        :
-                        <AddEmployment addEmploymant={addEmploymant}/>
-                    }
+                    <Col className={style.add} onClick={handleClickAddEmployment}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                        <span>Add employment</span>
+                    </Col>
                 </FormGroup>                
                 <FormGroup>
                     <h1>Education</h1>
