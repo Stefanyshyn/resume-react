@@ -2,7 +2,7 @@ import React from 'react';
 import { Media, Label, Input, Col, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './CreateResume.module.css';
-import init from '../../models/initialization';
+import init from '../../../models/initialization';
 
 const PersonalAddionalDetails = ({handleChange, resume})=>{
     const {
@@ -48,14 +48,7 @@ class AddEmployment extends React.Component {
     constructor(props){
         super(props);
         this.employment = init.employment(this.props.data);
-        this.state={
-            job:this.employment.job,
-            employer:this.employment.employer,
-            startDate: this.employment.startDate,
-            endDate: this.employment.endDate,
-            city: this.employment.city,
-            description: this.employment.description
-        }
+        this.state={ ...(this.employment)}
     }
     handleAddEmployment = (e) => {
         const {
@@ -142,26 +135,19 @@ class AddEmployment extends React.Component {
 class AddEducation extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            establishment:'',
-            degree: '',
-            startDate:'',
-            endDate:'',
-            city: '',
-            description: ''
-        }
+        this.education = init.education(this.props.data);
+        this.state={ ...(this.education)}
+        
     }
-    handleChange = (e)=>{
-        let { name, value } = e.target;
-        this.setState({ [name]:value })
-    }
+
     handleAddEducation = ()=>{
         const {
             establishment, degree,
             startDate, endDate,
             city, description
         } = this.state;
-        const {addEducation} = this.props;
+        const {addHistory} = this.props;
+        const addEmploymant = addHistory;
         let education = {
             establishment, 
             degree,
@@ -170,11 +156,26 @@ class AddEducation extends React.Component {
             city,
             description
         }
-        addEducation(education);
+        addEmploymant(education);
 
     }
 
+    handleChange = (e)=>{
+        const {
+            handleChange
+        } =this.props;
+        let {value, name} = e.target;
+        this.setState({[name]:value});
+        handleChange(e);
+    }
+
     render = ()=>{
+        const {
+            establishment, degree,
+            startDate, endDate,
+            city, description
+        } = this.state;
+
         const {
             handleAddEducation, handleChange
         } = this;
@@ -183,31 +184,30 @@ class AddEducation extends React.Component {
             <Col>
                 <div>
                     <Label for='establishment'>Establishment</Label>
-                    <Input type="text" name='establishment' onChange={handleChange}></Input>
+                    <Input type="text" value={establishment} name='establishment' onChange={handleChange}></Input>
                 </div>
                 <div>
                     <Label for='degree'>Degree</Label>
-                    <Input type="text" name='degree' onChange={handleChange}></Input>
+                    <Input type="text" value={degree} name='degree' onChange={handleChange}></Input>
                 </div>
                 <div>
                     <span>Star and End Date</span>
-                    <div className={style.StartEndDate}>
+                        <div className={style.StartEndDate}>
                         <div className={style.StartDate}>
-                            <Input type="date" name='startDate' onChange={handleChange}></Input>
+                            <Input type="date" name='startDate' value={startDate} onChange={handleChange}></Input>
                         </div>    
                         <div className={style.EndDate}>
-                            <Input type="date" name='endDate' onChange={handleChange}></Input>
+                            <Input type="date" name='endDate' value={endDate} onChange={handleChange}></Input>
                         </div>    
-                </div>
+                    </div>
                 </div>
                 <div>
                     <Label for='city'>City</Label>
-                    <Input type="text" name='city' onChange={handleChange}></Input>
+                    <Input type="text" name='city' value={city} onChange={handleChange}></Input>
                 </div>
                 <div>
                     <Label for='description'>Description</Label>
-                    <Input rows={4} type="textarea" style={{resize: 'none'}} 
-                        name='description' onChange={handleChange} />
+                    <Input rows={4} type="textarea" name='description' style={{resize: 'none'}} value={description}  onChange={handleChange}></Input>
                 </div>
                 <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddEducation}> 
                     <div className={style.divBtnSave}>
@@ -222,43 +222,52 @@ class AddEducation extends React.Component {
 class AddLink extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            title:'',
-            PathURL: '',
-        }
+        this.link = init.link(this.props.data);
+        this.state = { ...(this.link) }
     }
-    handleChange = (e)=>{
-        let { name, value } = e.target;
-        this.setState({ [name]:value })
-    }
+
     handleAddLink = ()=>{
         const {
-            title, PathURL,
+            title, pathURL,
         } = this.state;
 
-        const {addLink} = this.props;
+        const {addHistory} = this.props;
+        const addLink = addHistory;
 
         let link = {
             title, 
-            PathURL,
+            pathURL,
         }
         addLink(link);
     }
 
+    handleChange = (e)=>{
+        const {
+            handleChange
+        } =this.props;
+        let {value, name} = e.target;
+        this.setState({[name]:value});
+        handleChange(e);
+    }
+    
     render = ()=>{
         const {
             handleAddLink, handleChange
         } = this;
-    
+        
+        const { 
+            title, pathURL
+        } = this.state;
+
         return (
         <Col>
             <div>
-                <Label for='a'>Title</Label>
-                <Input type="text" name='a' onChange={handleChange}></Input>
+                <Label for='title'>Title</Label>
+                <Input type="text" value={title} name='title' onChange={handleChange}></Input>
             </div>
             <div>
-                <Label for='a'>URL-path</Label>
-                <Input type="text" name='a' onChange={handleChange}></Input>
+                <Label for='pathURL'>URL-path</Label>
+                <Input type="text" value={pathURL} name='pathURL' onChange={handleChange}></Input>
             </div>
             <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddLink}> 
                 <div className={style.divBtnSave}>
@@ -274,42 +283,53 @@ class AddLink extends React.Component {
 class AddSkill extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            skill:'',
-            degree: '',
-        }
+        this.skill = init.skill(this.props.data);
+        this.state = { ...(this.skill) }
+        
     }
-    handleChange = (e)=>{
-        let { name, value } = e.target;
-        this.setState({ [name]:value })
-    }
+
     handleAddSkill = ()=>{
         const {
             skill, degree,
         } = this.state;
 
-        const {addSkill} = this.props;
-
+        const {addHistory} = this.props;
+        const addSkill = addHistory;
+   
         let _skill = {
             skill, 
             degree
         }
         addSkill(_skill);
     }
+
+    handleChange = (e)=>{
+        const {
+            handleChange
+        } =this.props;
+        let {value, name} = e.target;
+        this.setState({[name]:value});
+        handleChange(e);
+    }
+
     render = ()=>{
         const {
             handleAddSkill, handleChange
         } = this;
     
+        const {
+            skill, degree,
+        } = this.state;
+
         return (
             <Col>
                 <div>
                     <Label for='skill'>Skill</Label>
-                    <Input type="text" name='skill' onChange={handleChange}/>
+                    <Input type="text" value={skill} name='skill' onChange={handleChange}/>
                 </div>
                 <div>
                     <Label for='degree'>Degree</Label>
-                    <Input type="text" name='degree' onChange={handleChange}/>
+                    <Input type="text" value={degree} name='degree' onChange={handleChange}/>
                 </div>
                 <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddSkill}> 
                     <div className={style.divBtnSave}>
@@ -324,21 +344,17 @@ class AddSkill extends React.Component {
 class AddLanguage extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            language:'',
-            level: '',
-        }
+        this.language = init.language(this.props.data);
+        this.state={ ...(this.language)}
     }
-    handleChange = (e)=>{
-        let { name, value } = e.target;
-        this.setState({ [name]:value })
-    }
+
     handleAddLanguage = ()=>{
         const {
             language, level,
         } = this.state;
 
-        const {addLanguage} = this.props;
+        const {addHistory} = this.props;
+        const addLanguage = addHistory;
 
         let _language = {
             language, 
@@ -346,19 +362,34 @@ class AddLanguage extends React.Component {
         }
         addLanguage(_language);
     }
+
+    handleChange = (e)=>{
+        const {
+            handleChange
+        } =this.props;
+        let {value, name} = e.target;
+        this.setState({[name]:value});
+        handleChange(e);
+    }
+    
     render = ()=>{
         const {
             handleAddLanguage, handleChange
         } = this;
+        
+        const {
+            language, level,
+        } = this.state;
+
         return (
             <Col>
                 <div>
                     <Label for='language'>Language</Label>
-                    <Input type="text" name='language' onChange={handleChange}/>
+                    <Input type="text" value={language} name='language' onChange={handleChange}/>
                 </div>
                 <div>
                     <Label for='level'>Level</Label>
-                    <Input type="text" name='level' onChange={handleChange}/>
+                    <Input type="text" value={level} name='level' onChange={handleChange}/>
                 </div>
                 <Button className={style.btnSave + ' btn btn-gray'} onClick={handleAddLanguage}> 
                     <div className={style.divBtnSave}>

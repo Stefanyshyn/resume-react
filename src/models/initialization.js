@@ -45,6 +45,51 @@ class Initialization {
         };
         return employment
     }
+
+    education = (education)=>{
+        if(_.isEmpty(education)) 
+        return {
+            id: uuid(),
+            establishment:'',
+            degree: '',
+            startDate:'',
+            endDate:'',
+            city: '',
+            description: ''
+        };
+        return education
+    }
+
+    link = (link)=>{
+        if(_.isEmpty(link)) 
+        return {
+            id: uuid(),
+            title:'',
+            pathURL: '',
+        };
+        return link
+    }
+    
+    skill = (skill)=>{
+        if(_.isEmpty(skill)) 
+        return {
+            id: uuid(),
+            skill:'',
+            degree: '',
+        };
+        return skill
+    }
+
+    language = (language)=>{
+        if(_.isEmpty(language)) 
+        return {
+            id: uuid(),
+            language:'',
+            level: '',
+        };
+        return language
+    }
+
 }
 
 export default new Initialization();

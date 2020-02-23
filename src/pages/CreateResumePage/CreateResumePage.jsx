@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './CreateResumePage.module.css';
 import { Form, FormGroup, Label, Input, Col, Media, Spinner } from 'reactstrap';
-import * as CreateResume from '../../components/CreateResume';
+import * as FormsResume from '../../components/Resume/Form';
 import Uploader from '../../utils/uploader';
 import ResumeModel from '../../models/resume';
 import UserModel from '../../models/user-front';
@@ -27,7 +27,12 @@ class CreateResumePage extends React.Component{
             isAddLanguage: false,
             isSaveResume: false,
             activeNumber:{
-              employment:-1,  
+                employment:-1,  
+                education:-1,  
+                link:-1,  
+                skill:-1,  
+                language:-1,  
+
             },
 
             ...(init.resume(this.resume))
@@ -118,6 +123,7 @@ class CreateResumePage extends React.Component{
             }
         )
     }
+    
     handleClickPersonalAddional = (e) =>{
         let {isPersonalAddition} = this.state;
         this.setState({isPersonalAddition: !isPersonalAddition});
@@ -131,20 +137,30 @@ class CreateResumePage extends React.Component{
 
     }
     handleClickAddEducation = (e) =>{
-        let {isAddEducation} = this.state;
-        this.setState({isAddEducation: !isAddEducation});
+        let {educations} = this.state;
+        this.setState({
+            activeNumber:{education:this.state.educations.length},
+            educations: [...educations, init.education()]
+        })
+        console.log(this.state);
     }
     handleClickAddLink = (e) =>{
-        let {isAddLink} = this.state;
-        this.setState({isAddLink: !isAddLink});
+        let {links} = this.state;
+        this.setState({
+            links:[...links, init.link()]
+        });
     }
     handleClickAddSkill = (e) =>{
-        let {isAddSkill} = this.state;
-        this.setState({isAddSkill: !isAddSkill});
+        let {skills} = this.state;
+        this.setState({
+            skills:[...skills, init.skill()]
+        });
     }
     handleClickAddLanguage = (e) =>{
-        let {isAddLanguage} = this.state;
-        this.setState({isAddLanguage: !isAddLanguage});
+        let {languages} = this.state;
+        this.setState({
+            languages:[...languages, init.language()]
+        });
     }
 
     handleChange = (e)=>{
@@ -228,9 +244,7 @@ class CreateResumePage extends React.Component{
             educations, links, skills, languages, hobbies
         } = this.state;
         const { 
-            isAddEducation,isPersonalAddition,
-            isAddEmployment, isAddLink, 
-            isAddSkill, isAddLanguage, isSaveResume 
+            isPersonalAddition, isSaveResume 
         } = this.state;
         const { 
             handleClickPersonalAddional,handleClickAddEmployment,
@@ -246,8 +260,7 @@ class CreateResumePage extends React.Component{
             PersonalAddionalDetails, AddEmployment,
             AddEducation, AddLink,
             AddSkill, AddLanguage
-        } = CreateResume;
-        console.log(employments)
+        } = FormsResume;
         return (
             <Form name='resumeForm' onSubmit={handleSubmit}>
                 <FormGroup>
@@ -356,15 +369,23 @@ class CreateResumePage extends React.Component{
                             Include your most recent educational achievements and the dates
                         </span>
                     </Col>
+                    <Col>
                     {
-                    !isAddEducation?
-                        <Col className={style.add} onClick={handleClickAddEducation}>
-                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                            <span>Add education</span>
-                        </Col>
-                        :
-                        <AddEducation addEducation={addEducation}/>
+                        educations.map((education, index )=>{
+                            return(
+                                <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'education')} 
+                                key={Math.random()} id={index} isEdit={this.state.activeNumber.education === index?true:false} 
+                                addHistory={addEducation} itemHistory={education} 
+                                EditComponet={AddEducation}
+                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'education', education.id)}></ItemHistoryResume>
+                            );
+                        })
                     }
+                    </Col>
+                     <Col className={style.add} onClick={handleClickAddEducation}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                        <span>Add employment</span>
+                    </Col>
                 </FormGroup>
                 <FormGroup>
                     <h1>Links</h1>
@@ -373,38 +394,63 @@ class CreateResumePage extends React.Component{
                             Perhaps It will be  a link to your portfolio or personal website
                         </span>
                     </Col>
-
-                    {!isAddLink?
-                        <Col className={style.add} onClick={handleClickAddLink}>
-                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                            <span>Add link</span>
-                        </Col>
-                        :
-                            <AddLink addLink={addLink}/>
+                    <Col>
+                    {
+                        links.map((link, index )=>{
+                            return(
+                                <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'link')} 
+                                key={Math.random()} id={index} isEdit={this.state.activeNumber.link === index?true:false} 
+                                addHistory={addLink} itemHistory={link} 
+                                EditComponet={AddLink}
+                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'link', link.id)}></ItemHistoryResume>
+                            );
+                        })
                     }
+                    </Col>
+                    <Col className={style.add} onClick={handleClickAddLink}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                        <span>Add link</span>
+                    </Col>
                 </FormGroup>
                 <FormGroup>
                     <h1>Skills</h1>
-                    {!isAddSkill?
-                        <Col className={style.add} onClick={handleClickAddSkill}>
-                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                            <span>Add skill</span>
-                        </Col>
-                        :
-                        <AddSkill addSkill={addSkill}/>
+                    <Col>
+                    {
+                        skills.map((skill, index )=>{
+                            return(
+                                <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'skill')} 
+                                key={Math.random()} id={index} isEdit={this.state.activeNumber.skill === index?true:false} 
+                                addHistory={addSkill} itemHistory={skill} 
+                                EditComponet={AddSkill}
+                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'skill', skill.id)}></ItemHistoryResume>
+                            );
+                        })
                     }
+                    </Col>
+                    <Col className={style.add} onClick={handleClickAddSkill}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                        <span>Add skill</span>
+                    </Col>
                 </FormGroup>
                 <FormGroup>
                     <h1>Languages</h1>
-        
-                    {!isAddLanguage?
-                        <Col className={style.add} onClick={handleClickAddLanguage}>
-                            <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                            <span>Add language</span>
-                        </Col>
-                        :
-                            <AddLanguage addLanguage={addLanguage}/>
+                    <Col>
+                    {
+                        languages.map((language, index )=>{
+                            return(
+                                <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'language')} 
+                                key={Math.random()} id={index} isEdit={this.state.activeNumber.language === index?true:false} 
+                                addHistory={addLanguage} itemHistory={language} 
+                                EditComponet={AddLanguage}
+                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'language', language.id)}></ItemHistoryResume>
+                            );
+                        })
                     }
+                    </Col>
+                    <Col className={style.add} onClick={handleClickAddLanguage}>
+                        <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
+                        <span>Add language</span>
+                    </Col>
                 </FormGroup>
                 <FormGroup>
                     <h1>Hobbies</h1>
