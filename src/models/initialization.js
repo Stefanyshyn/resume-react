@@ -3,7 +3,7 @@ import uuid from 'uuid/v4';
 import ResumeModel from '../models/resume';
 
 class Initialization {
-    Resume = (resume)=>{
+    resume = (resume)=>{
         if(_.isEmpty(resume)){
             return {
                 id: uuid(),
@@ -32,7 +32,7 @@ class Initialization {
         return {...ResumeModel.getOne({...resume})}
     }
 
-    Employment = (employment)=>{
+    employment = (employment)=>{
         if(_.isEmpty(employment)) 
         return {
             id: uuid(),

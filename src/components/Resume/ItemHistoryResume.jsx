@@ -6,19 +6,20 @@ import style from './ItemHistoryResume.module.css';
 import _ from 'lodash';
 
 
-const Setting = (isSetting)=>{
+const Setting = ({isEdit, handleRemoveItemHistory,handleOpenSetting,handleOpenEdit})=>{
+
     return (
         <div className={style.containerSetting}>
             <div className={style.Setting}>
-                <div>Delete</div>
-                <div>
-                    {isSetting?
+                <div onClick={handleRemoveItemHistory}>Delete</div>
+                <div onClick={handleOpenEdit}>
+                    {isEdit?
                         'Collapse'
                         :
                         'Expand'
                     }
                 </div>
-                <div>Cancel</div>
+                <div onClick={handleOpenSetting}>Cancel</div>
             </div>
         </div>
     );
@@ -53,6 +54,7 @@ class ItemHistoryResume extends React.Component{
             city,
             description
         } = this.state;
+
         let employment = {
             id: this.props.itemHistory.id,
             job,
@@ -75,7 +77,7 @@ class ItemHistoryResume extends React.Component{
     }
 
     render=()=>{
-        const {EditComponet, addHistory} = this.props;
+        const {EditComponet, handleRemoveItemHistory} = this.props;
         
         const {isEdit, isSetting} = this.state;
         const {handleOpenSetting, handleOpenEdit, handleChange} = this;
@@ -123,7 +125,7 @@ class ItemHistoryResume extends React.Component{
                             <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/18/18613.svg' alt=" o o o "/>
                             {
                                 isSetting?
-                                <Setting isEdit={isEdit}/>
+                                <Setting isEdit={isEdit} handleOpenEdit={handleOpenEdit} handleOpenSetting={handleOpenSetting} handleRemoveItemHistory={handleRemoveItemHistory}/>
                                 :""
                             }
                         </div>
@@ -139,7 +141,7 @@ class ItemHistoryResume extends React.Component{
                 </div>
                 {
                     isEdit?
-                    <EditComponet data={ this.employment } addHistory={addHistory} handleChange={handleChange}/>
+                    <EditComponet data={ this.employment } addHistory={ handleOpenEdit } handleChange={handleChange}/>
                     :""
                 }
             </div>

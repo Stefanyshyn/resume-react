@@ -47,7 +47,7 @@ const PersonalAddionalDetails = ({handleChange, resume})=>{
 class AddEmployment extends React.Component {
     constructor(props){
         super(props);
-        this.employment = init.Employment(this.props.data);
+        this.employment = init.employment(this.props.data);
         this.state={
             job:this.employment.job,
             employer:this.employment.employer,

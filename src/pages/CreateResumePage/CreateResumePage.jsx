@@ -30,7 +30,7 @@ class CreateResumePage extends React.Component{
               employment:-1,  
             },
 
-            ...(init.Resume(this.resume))
+            ...(init.resume(this.resume))
         }
     }
 
@@ -87,9 +87,23 @@ class CreateResumePage extends React.Component{
             ]
         })
     }
+    
+    handleRemoveItemHistory = (nameHistory, id)=>{
+        this.setState(
+            {
+                [nameHistory+'s']: this.state[nameHistory+'s'].filter((item)=>{
+                    if(item.id !== id)
+                     return item;
+                }),
+                activeNumber:
+                {
+                    [nameHistory]:id 
+                },
+            }
+        )
+    }
 
     handleClickEdit = (nameHistory, id, itemHistory)=>{
-        console.log(id)
         this.setState(
             {
                 [nameHistory+'s']: this.state[nameHistory+'s'].map((item)=>{
@@ -108,11 +122,12 @@ class CreateResumePage extends React.Component{
         let {isPersonalAddition} = this.state;
         this.setState({isPersonalAddition: !isPersonalAddition});
     }
+
     handleClickAddEmployment = (e) =>{
         let {employments} = this.state;
         this.setState({
             activeNumber:{employment:this.state.employments.length},
-            employments: [...employments, init.Employment()]})
+            employments: [...employments, init.employment()]})
 
     }
     handleClickAddEducation = (e) =>{
@@ -166,13 +181,13 @@ class CreateResumePage extends React.Component{
         this.setState({isSaveResume:!isSaveResume})
         
         const {
-            id, job, firstname, lastname, newAvatar,
+            id, job, firstname, lastname, avatar, newAvatar,
             email, phone, country, city, address,
             nationality, birthPlace, birthday, profSummary, employments,
             educations, links, skills, languages, hobbies
         } = this.state;
-
-        let urlImage = await Uploader.upload(newAvatar);
+        
+        let urlImage = newAvatar?await Uploader.upload(newAvatar):avatar;
         
         let resume = {
             id,
@@ -207,7 +222,7 @@ class CreateResumePage extends React.Component{
 
     render = ()=> {
         const {
-            id, job, firstname, lastname, avatar,
+            job, firstname, lastname, avatar,
             email, phone, country, city, address,
             nationality, birthPlace, birthday, profSummary, employments,
             educations, links, skills, languages, hobbies
@@ -225,7 +240,7 @@ class CreateResumePage extends React.Component{
             handleSubmit, handleChange, 
             addEmployment, addEducation,
             addLink, addSkill, addLanguage,
-            handleClickEdit
+            handleClickEdit,handleRemoveItemHistory
         } = this;
         const{
             PersonalAddionalDetails, AddEmployment,
@@ -323,7 +338,8 @@ class CreateResumePage extends React.Component{
                                     <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'employment')} 
                                     key={Math.random()} id={index} isEdit={this.state.activeNumber.employment === index?true:false} 
                                     addHistory={addEmployment} itemHistory={employment} 
-                                    EditComponet={AddEmployment}></ItemHistoryResume>
+                                    EditComponet={AddEmployment}
+                                    handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'employment', employment.id)}></ItemHistoryResume>
                                 );
                             })
                         }
@@ -340,7 +356,8 @@ class CreateResumePage extends React.Component{
                             Include your most recent educational achievements and the dates
                         </span>
                     </Col>
-                    {!isAddEducation?
+                    {
+                    !isAddEducation?
                         <Col className={style.add} onClick={handleClickAddEducation}>
                             <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
                             <span>Add education</span>
