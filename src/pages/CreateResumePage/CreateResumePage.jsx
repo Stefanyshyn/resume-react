@@ -9,6 +9,13 @@ import UserModel from '../../models/user-front';
 import init from '../../models/initialization.js';
 import ItemResume from '../../components/Resume/Field';
 
+const Title = (text)=>{
+    return (        
+    <Col><h1>{text}</h1>
+        </Col>
+    );
+}
+
 class CreateResumePage extends React.Component{ 
     
     constructor(props){
@@ -265,7 +272,9 @@ class CreateResumePage extends React.Component{
         return (
             <Form name='resumeForm' onSubmit={handleSubmit}>
                 <FormGroup>
-                    <h1>Personal data</h1>
+                    <Col><h1>
+                        {Title('Personal data')}
+                    </h1></Col>
                      <Col className={style.JobAvatar}>
                         <div className={style.JobResume}>
                             <Label>Job title</Label>
@@ -328,7 +337,6 @@ class CreateResumePage extends React.Component{
                     </Col>                    
                 </FormGroup>
                 <FormGroup>
-                    <h2>Professional Summary</h2>
                     <Col className={style.TitleArticle}>
                         <span >
                             Include several sentences about your total experience
@@ -339,7 +347,7 @@ class CreateResumePage extends React.Component{
                     </Col>
                 </FormGroup>       
                 <FormGroup>
-                    <h2>Employment History</h2>
+                    {Title('Employment History')}
                     <Col className={style.TitleArticle}>
                         <span>
                             Include your relevant experience and dates in this section. List your most recent position first.
@@ -364,7 +372,7 @@ class CreateResumePage extends React.Component{
                     </Col>
                 </FormGroup>                
                 <FormGroup>
-                    <h1>Education</h1>
+                    {Title('Education History')}
                     <Col className={style.TitleArticle}>
                         <span>
                             Include your most recent educational achievements and the dates
@@ -390,7 +398,7 @@ class CreateResumePage extends React.Component{
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <h1>Links</h1>
+                    {Title('Links')}
                     <Col className={style.TitleArticle}>
                         <span>
                             Perhaps It will be  a link to your portfolio or personal website
@@ -415,7 +423,7 @@ class CreateResumePage extends React.Component{
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <h1>Skills</h1>
+                    {Title('Skills')}
                     <Col className={style.containerItem}>
                     {
                         skills.map((skill, index )=>{
@@ -435,7 +443,7 @@ class CreateResumePage extends React.Component{
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <h1>Languages</h1>
+                    {Title('Languages')}
                     <Col className={style.containerItem}>
                     {
                         languages.map((language, index )=>{
@@ -455,7 +463,7 @@ class CreateResumePage extends React.Component{
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <h1>Hobbies</h1>
+                    {Title('Hobbies')}
                     <Col>
                         <Label for='hobbies'>What do you like do?</Label>
                         <Input rows={4} type="textarea" name='hobbies' style={{resize: 'none'}} value={hobbies} onChange={handleChange}></Input>
