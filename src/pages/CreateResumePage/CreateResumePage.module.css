@@ -1,6 +1,3 @@
-body{
-    background: #215a9f;
-}
 label, span{
     font-weight: 600 !important;
     font-size: 18px;
@@ -146,9 +143,9 @@ textarea{
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.containerEmployment > div{
+.containerItem > div{
     margin-bottom: 10px;
 }
-.containerEmployment > div:last-child{    
+.containerItem > div:last-child{    
     margin-bottom: 10px;
 }

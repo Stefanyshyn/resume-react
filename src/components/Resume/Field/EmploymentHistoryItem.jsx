@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import  {Media} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import style from './ItemHistoryResume.module.css';
+import style from './ItemResume.module.css';
 import _ from 'lodash';
 
 
@@ -25,7 +25,7 @@ const Setting = ({isEdit, handleRemoveItemHistory,handleOpenSetting,handleOpenEd
     );
 }
 
-class ItemHistoryResume extends React.Component{
+class EmploymentHistoryItem extends React.Component{
     constructor(props){
         super(props);
         const {isEdit, itemHistory} = this.props;
@@ -148,4 +148,4 @@ class ItemHistoryResume extends React.Component{
         );
     }
 }
-export default ItemHistoryResume;
+export default EmploymentHistoryItem;

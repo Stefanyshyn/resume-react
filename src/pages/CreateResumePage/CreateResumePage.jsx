@@ -6,8 +6,8 @@ import * as FormsResume from '../../components/Resume/Form';
 import Uploader from '../../utils/uploader';
 import ResumeModel from '../../models/resume';
 import UserModel from '../../models/user-front';
-import ItemHistoryResume from '../../components/Resume/ItemHistoryResume';
 import init from '../../models/initialization.js';
+import ItemResume from '../../components/Resume/Field';
 
 class CreateResumePage extends React.Component{ 
     
@@ -49,7 +49,6 @@ class CreateResumePage extends React.Component{
                 ...(this.state.employments),
                 employment
             ],
-
         })
     }
     addEducation = (education)=>{
@@ -61,6 +60,7 @@ class CreateResumePage extends React.Component{
                 education
             ]
         })
+        console.log(education);
     }
     addLink = (link)=>{
         let {isAddLink} = this.state;
@@ -96,9 +96,10 @@ class CreateResumePage extends React.Component{
     handleRemoveItemHistory = (nameHistory, id)=>{
         this.setState(
             {
-                [nameHistory+'s']: this.state[nameHistory+'s'].filter((item)=>{
+                [nameHistory+'s']: this.state[nameHistory+'s'].filter( item => {
                     if(item.id !== id)
-                     return item;
+                     return false;
+                     return true;
                 }),
                 activeNumber:
                 {
@@ -113,8 +114,8 @@ class CreateResumePage extends React.Component{
             {
                 [nameHistory+'s']: this.state[nameHistory+'s'].map((item)=>{
                     if(item.id === itemHistory.id)
-                     return itemHistory;
-                     return item;
+                        return itemHistory;
+                        return item;
                 }),
                 activeNumber:
                 {
@@ -142,7 +143,6 @@ class CreateResumePage extends React.Component{
             activeNumber:{education:this.state.educations.length},
             educations: [...educations, init.education()]
         })
-        console.log(this.state);
     }
     handleClickAddLink = (e) =>{
         let {links} = this.state;
@@ -261,6 +261,7 @@ class CreateResumePage extends React.Component{
             AddEducation, AddLink,
             AddSkill, AddLanguage
         } = FormsResume;
+        let {EmploymentHistoryItem, EducationHistoryItem, LinkItem, SkillItem, LanguageItem} = ItemResume;
         return (
             <Form name='resumeForm' onSubmit={handleSubmit}>
                 <FormGroup>
@@ -344,15 +345,15 @@ class CreateResumePage extends React.Component{
                             Include your relevant experience and dates in this section. List your most recent position first.
                         </span>
                     </Col>
-                    <Col className={style.containerEmployment}>
+                    <Col className={style.containerItem}>
                         {   
                             employments.map((employment,index) => {
                                 return (
-                                    <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'employment')} 
+                                    <EmploymentHistoryItem handleClickEdit={handleClickEdit.bind(this, 'employment')} 
                                     key={Math.random()} id={index} isEdit={this.state.activeNumber.employment === index?true:false} 
                                     addHistory={addEmployment} itemHistory={employment} 
                                     EditComponet={AddEmployment}
-                                    handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'employment', employment.id)}></ItemHistoryResume>
+                                    handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'employment', employment.id)}/>
                                 );
                             })
                         }
@@ -369,22 +370,23 @@ class CreateResumePage extends React.Component{
                             Include your most recent educational achievements and the dates
                         </span>
                     </Col>
-                    <Col>
+                    <Col className={style.containerItem}>
                     {
                         educations.map((education, index )=>{
+                            console.log(education);
                             return(
-                                <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'education')} 
+                                <EducationHistoryItem handleClickEdit={handleClickEdit.bind(this, 'education')} 
                                 key={Math.random()} id={index} isEdit={this.state.activeNumber.education === index?true:false} 
                                 addHistory={addEducation} itemHistory={education} 
                                 EditComponet={AddEducation}
-                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'education', education.id)}></ItemHistoryResume>
+                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'education', education.id)}/>
                             );
                         })
                     }
                     </Col>
                      <Col className={style.add} onClick={handleClickAddEducation}>
                         <Media width="24" height="24" viewBox="0 0 24 24" src='https://image.flaticon.com/icons/svg/808/808559.svg' alt=" + "/>
-                        <span>Add employment</span>
+                        <span>Add education</span>
                     </Col>
                 </FormGroup>
                 <FormGroup>
@@ -394,15 +396,15 @@ class CreateResumePage extends React.Component{
                             Perhaps It will be  a link to your portfolio or personal website
                         </span>
                     </Col>
-                    <Col>
+                    <Col className={style.containerItem}>
                     {
                         links.map((link, index )=>{
                             return(
-                                <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'link')} 
+                                <LinkItem handleClickEdit={handleClickEdit.bind(this, 'link')} 
                                 key={Math.random()} id={index} isEdit={this.state.activeNumber.link === index?true:false} 
                                 addHistory={addLink} itemHistory={link} 
                                 EditComponet={AddLink}
-                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'link', link.id)}></ItemHistoryResume>
+                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'link', link.id)}/>
                             );
                         })
                     }
@@ -414,15 +416,15 @@ class CreateResumePage extends React.Component{
                 </FormGroup>
                 <FormGroup>
                     <h1>Skills</h1>
-                    <Col>
+                    <Col className={style.containerItem}>
                     {
                         skills.map((skill, index )=>{
                             return(
-                                <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'skill')} 
+                                <SkillItem handleClickEdit={handleClickEdit.bind(this, 'skill')} 
                                 key={Math.random()} id={index} isEdit={this.state.activeNumber.skill === index?true:false} 
                                 addHistory={addSkill} itemHistory={skill} 
                                 EditComponet={AddSkill}
-                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'skill', skill.id)}></ItemHistoryResume>
+                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'skill', skill.id)}/>
                             );
                         })
                     }
@@ -434,15 +436,15 @@ class CreateResumePage extends React.Component{
                 </FormGroup>
                 <FormGroup>
                     <h1>Languages</h1>
-                    <Col>
+                    <Col className={style.containerItem}>
                     {
                         languages.map((language, index )=>{
                             return(
-                                <ItemHistoryResume handleClickEdit={handleClickEdit.bind(this, 'language')} 
+                                <LanguageItem handleClickEdit={handleClickEdit.bind(this, 'language')} 
                                 key={Math.random()} id={index} isEdit={this.state.activeNumber.language === index?true:false} 
                                 addHistory={addLanguage} itemHistory={language} 
                                 EditComponet={AddLanguage}
-                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'language', language.id)}></ItemHistoryResume>
+                                handleRemoveItemHistory={handleRemoveItemHistory.bind(this, 'language', language.id)}/>
                             );
                         })
                     }
