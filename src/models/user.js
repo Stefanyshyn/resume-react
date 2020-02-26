@@ -97,6 +97,12 @@ class User{
 
     }
 
+    getByUsername = (username) =>{
+        if(!username) return;
+        const user = this.collection.findOne({username});
+        return user;
+    }
+
     updateOne = (user) => { 
         return this.collection.updateOne({ id:user.id}, user);
     }

@@ -4,22 +4,19 @@ import {
     CardBody,
     CardText, 
 } from 'reactstrap';
-import faker from 'faker';
 import style from './ProfilePage.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import ModelUser from '../../models/user-front';
+import init from '../../models/initialization';
 
 class ProfilePage extends React.Component{
     constructor(props){
         super(props);
-        this.user = {
-            profile:{
-                name: faker.name.firstName(2),
-                avatar: faker.image.avatar()
-            }
-        }
+        let _user = ModelUser.getUserByUsername()
+        this.user = init.user(_user);
     }
-    render(){
+
+    render = ()=>{
         const {profile} = this.user;
         return(
             <div className={style.profileContainer}>

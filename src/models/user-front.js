@@ -24,6 +24,9 @@ class User{
         const accessToken = this._loadAccessToken();
         return UserServer.getByAccessToken(accessToken);
     }
+    getUserByUsername = (username)=>{
+        return UserServer.getByUsername(username);
+    }
     update = (user) =>{
         return UserServer.updateOne(user);
     }

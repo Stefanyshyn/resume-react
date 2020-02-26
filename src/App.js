@@ -11,6 +11,7 @@ import Test from './pages/TestPage';
 import ProfilePage from './pages/ProfilePage';
 import PersonalProfilePage from './pages/PersonalProfilePage';
 import CreateResumePage from './pages/CreateResumePage';
+import FeedResumePage from './pages/FeedResumePage'
 
 //layouts
 import AuthLayout from './layouts/AuthLayout'; 
@@ -35,7 +36,7 @@ function App() {
               <LoginPage {...props} isLogin={false}/>
             </AuthLayout>
           )}
-        />
+        />       
         <Route
           path="/profile"
           exact
@@ -60,6 +61,14 @@ function App() {
           render={(props) => (
             <MainLayout {...props}>
                <CreateResumePage resume={{id: "5d6fc2ed-b826-414c-8815-8bee03b7d67f"}} {...props}/>
+            </MainLayout>
+          )}
+        />
+         <Route
+          path="/feed-resume"
+          render={(props) => (
+            <MainLayout {...props}>
+              <FeedResumePage {...props} />
             </MainLayout>
           )}
         />

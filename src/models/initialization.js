@@ -3,6 +3,16 @@ import uuid from 'uuid/v4';
 import ResumeModel from '../models/resume';
 
 class Initialization {
+    user = (user)=>{
+        if(_.isEmpty(user))
+            return {
+                id: uuid(),
+                profile:{
+                    name: 'No name',
+                    avatar: 'https://image.flaticon.com/icons/svg/1077/1077114.svg'
+                }
+            }
+    }
     resume = (resume)=>{
         if(_.isEmpty(resume)){
             return {
