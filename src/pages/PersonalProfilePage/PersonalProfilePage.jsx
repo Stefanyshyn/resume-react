@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
     Input, 
-    Col, Form, FormGroup, Label, Media
+    Col, Form, FormGroup, Label, Media, Spinner
 } from 'reactstrap';
 import style from './PersonalProfilePage.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -17,12 +17,14 @@ class ProfilePage extends React.Component{
             newAvatar: null,
             username: this.user.username,
             name: this.user.profile.name,
+
+            isSaveResume: false
         }
     }
 
     handleSubmit = async (e)=>{
         e.preventDefault();
-
+        this.setState({isSaveResume:true})
         let file = e.target.newAvatar.files[0];
         let urlImage = await Uploader.upload(file);
         const {username, name} = this.state;
@@ -35,6 +37,7 @@ class ProfilePage extends React.Component{
             }
         }
         UserModel.update(user);
+        this.setState({isSaveResume:false})
     }
 
     handleSelectFile = (e)=>{
@@ -76,8 +79,11 @@ class ProfilePage extends React.Component{
                 </FormGroup>
                 <FormGroup row>
                     <Col className={style.btnSave + " " + style.Input}>
-                    <Input className="btn btn-dark" value="Save" name="save" type="submit"/>
-                </Col>
+                        <Input className="btn btn-dark" value="Save" name="save" type="submit"/>
+                        {this.state.isSaveResume?
+                                <Spinner width='44px' color='gray' ></Spinner>
+                                :''}
+                    </Col>
                 </FormGroup>
             </Form>
         );

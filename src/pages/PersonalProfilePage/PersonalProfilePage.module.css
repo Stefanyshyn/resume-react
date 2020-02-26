@@ -20,6 +20,7 @@
 .btnSave{
     display: flex;
     flex-direction: row-reverse;
+    align-items: center;
 }
 .btnSave input {
     max-width: 100px;

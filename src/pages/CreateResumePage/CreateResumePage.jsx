@@ -272,10 +272,8 @@ class CreateResumePage extends React.Component{
         return (
             <Form name='resumeForm' onSubmit={handleSubmit}>
                 <FormGroup>
-                    <Col><h1>
-                        {Title('Personal data')}
-                    </h1></Col>
-                     <Col className={style.JobAvatar}>
+                    {Title('Personal data')}
+                    <Col className={style.JobAvatar}>
                         <div className={style.JobResume}>
                             <Label>Job title</Label>
                             <Input type="text" name='job' value={job} placeholder="e.g. Teacher" onChange={handleChange}></Input>
