@@ -1,20 +1,30 @@
-import React from 'react';
+import React  from 'react';
 //import {Link} from 'react-router-dom';
-import {Alert} from 'reactstrap';
-import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './FeedResumePage.module.css';
-import LoginForm from '../../components/LoginForm';
-import RegisterFrom from '../../components/RegisterForm';
-import ModelUser from '../../models/user-front';
+import FeedResume from '../../components/FeedResume';
+import ModelResume from '../../models/resume';
+import _ from 'lodash';
 
 class FeedResumePage extends React.Component{ 
+    constructor(props){
+        super(props);
+        let resumes = props.resumes?props.resumes:ModelResume.get({})
+
+
+        this.state = {
+            resumes: resumes,
+        }
+    }
+
 
     render = ()=> {
-  
+        const {
+            resumes
+        } = this.state;
         
         return (
-            <div>Resumes</div>
+            <FeedResume resumes={resumes}></FeedResume>
         );
     }
 }
