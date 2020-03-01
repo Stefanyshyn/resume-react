@@ -25,7 +25,10 @@ class User{
         return UserServer.getByAccessToken(accessToken);
     }
     getUserByUsername = (username)=>{
-        return UserServer.getByUsername(username);
+        return UserServer.getOneUser({username});
+    }
+    getUserById = (id)=>{
+        return UserServer.getOneUser({id});
     }
     update = (user) =>{
         return UserServer.updateOne(user);

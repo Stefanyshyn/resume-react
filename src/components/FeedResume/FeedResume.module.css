@@ -1,15 +1,15 @@
-.formLogin{
-    display: flex;
-    justify-content: space-evenly;
+.userInfo{
+    display:flex;
     align-items: center;
-    flex-direction: column;
-    min-width: 130px;
 }
-.Input{
-    margin-top: 10px;
-    max-width: 300px;
+.avatar>img{
+    border-radius: 50%;
 }
-.Button{
-    margin-top: 15px;
-    margin-bottom: 15px;
+.userName{
+    margin-left: 10px;
+}
+.Border{
+    border-radius: 0.25rem;
+    border: solid 2px gray;
+    padding: 5px 10px;    
 }

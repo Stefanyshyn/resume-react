@@ -24,6 +24,8 @@ class CreateResumePage extends React.Component{
         
         this.resume = this.props.resume;
 
+        console.log(this.resume);
+
         this.state = {
             indexEmployment: -1,
             isPersonalAddition: false,

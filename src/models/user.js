@@ -97,9 +97,9 @@ class User{
 
     }
 
-    getByUsername = (username) =>{
-        if(!username) return;
-        const user = this.collection.findOne({username});
+    getOneUser = (_user) =>{
+        if(!_user) return;
+        const user = this.collection.findOne({..._user});
         return user;
     }
 

@@ -15,6 +15,7 @@ class Initialization {
     }
     resume = (resume)=>{
         if(_.isEmpty(resume)){
+            console.log(resume)
             return {
                 id: uuid(),
                 job: '',
@@ -38,7 +39,7 @@ class Initialization {
                 languages:[],
                 hobbies:''
             }
-        }else 
+        }
         return {...ResumeModel.getOne({...resume})}
     }
 
