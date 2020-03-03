@@ -1,3 +1,10 @@
+.containerResume > div:first-child{
+    margin-top: 10px;
+}
+.containerResume > div{
+    margin-bottom: 10px;
+}
+
 .userInfo{
     display:flex;
     align-items: center;
@@ -12,4 +19,51 @@
     border-radius: 0.25rem;
     border: solid 2px gray;
     padding: 5px 10px;    
+}
+.JobResume, .FullnameResume,
+.languageReusme,
+.skillsResume, .linksResume,
+.employmentHistory, .educationHistory{
+        flex-basis: 50%;
+}
+.JobResume,
+.languageReusme,
+.skillsResume,
+.employmentHistory{
+        margin-right: 40px;
+}
+@media (max-width: 570px){
+    .JobResume, .FullnameResume,
+    .languageReusme,
+    .skillsResume, .linksResume,
+    .employmentHistory, .educationHistory {
+        margin-right: 0px;
+        margin-bottom: 10px;
+        flex: 0 0 100%;
+    }
+    .MainInfoReusme,
+    .LanguageReusme,
+    .linksAndSkillsReusme,
+    .historyResume {
+        flex-direction: column;
+    }
+    .JobResume,
+    .skillsResume,
+    .languageReusme,
+    .employmentHistory{
+        margin-right: 0;
+    }
+}
+.MainInfoReusme,
+.LanguageReusme,
+.linksAndSkillsReusme,
+.historyResume{
+    justify-content: space-between !important;
+}
+
+.MainInfoReusme,
+.LanguageReusme,
+.linksAndSkillsReusme,
+.historyResume{
+    display: flex !important;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import  {Col} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-//import style from './FeedResume.module.css';
+import style from './FeedResume.module.css';
 import _ from 'lodash';
 import ResumeCollapse from './ResumeCollapse';
 
@@ -11,14 +11,17 @@ const FeedResume = (props)=>{
 
     return (
         <Col>
-            <div>Resume</div>
             {
                 _.isEmpty(resumes)?
                 ''
                 //TODO::EmptyMsg
                 :
                 resumes.map( (resume, index) =>{
-                    return <ResumeCollapse key={resume.id} resume={resume}></ResumeCollapse>;
+                    return (
+                        <div className={style.containerResume} key={resume.id}>
+                            <ResumeCollapse key={resume.id} resume={resume}></ResumeCollapse>
+                        </div>
+                    );
                 } )
             }
 

@@ -34,37 +34,41 @@ const FeedResume = (props)=>{
                 </div>
             </div>
             <div className={style.userResume}>
-                <div>
-                    <div>
+                <div className={style.MainInfoReusme}>
+                    <div className={style.JobResume}>
                         <Label>Job:</Label>
                         <Label>{resume.job}</Label>
                     </div>
-                    <div>
+                    <div className={style.FullnameResume}>
                         <Label>Fullname:</Label>
                         <Label>{`${resume.firstname} ${resume.lastname}`}</Label>
                     </div>
                 </div>
-            </div>
-            <div>
-                <div>
-                    <Label>Employment history:</Label>
-                    <Label>{resume.employments.length}</Label>
+                <div className={style.historyResume}>
+                    <div className={style.employmentHistory}>
+                        <Label>Employment history:</Label>
+                        <Label>{resume.employments.length}</Label>
+                    </div>
+                    <div className={style.educationHistory}>
+                    <Label>Education history:</Label>
+                        <Label>{resume.educations.length}</Label>
+                    </div>
                 </div>
-                <div>
-                <Label>Education history:</Label>
-                    <Label>{resume.educations.length}</Label>
+                <div className={style.linksAndSkillsReusme}>
+                    <div className={style.skillsResume}>
+                    <Label>Skills:</Label>
+                        <Label>{resume.skills.length}</Label>
+                    </div>
+                    <div  className={style.linksResume}>
+                    <Label>Links:</Label>
+                        <Label>{resume.links.length}</Label>
+                    </div>
                 </div>
-                <div>
-                <Label>Skills:</Label>
-                    <Label>{resume.skills.length}</Label>
-                </div>
-                <div>
-                <Label>Links:</Label>
-                    <Label>{resume.links.length}</Label>
-                </div>
-                <div>
-                    <Label>Language:</Label>
-                    <Label>{resume.languages.length}</Label>
+                <div className={style.LanguageReusme}>
+                    <div className={style.languageReusme}>
+                        <Label>Language:</Label>
+                        <Label>{resume.languages.length}</Label>
+                    </div>
                 </div>
             </div>
         </Col>

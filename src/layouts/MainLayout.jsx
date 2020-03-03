@@ -25,9 +25,9 @@ const MainLayout = ({children, history}) => {
     <>
       {user?'':<Redirect to='/sign-in'></Redirect>}
       <Navbar color="dark" dark expand="md">
-        <Link to='/feed-resume'>
-          <NavbarBrand href="/">Resume</NavbarBrand>
-        </Link>
+          <NavbarBrand href="/feed-resume">
+              Resume
+          </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
