@@ -41,7 +41,7 @@ class Collection{
 
     updateOne = (predicate, source)=>{
         if(_.isEmpty(predicate)) return undefined;
-        let doc = _.find(this.items, predicate);
+        let doc = _.find(this.items, {...predicate});
 
         _.assign(doc, source);
 

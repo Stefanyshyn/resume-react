@@ -49,7 +49,7 @@ const MainLayout = (props) => {
           </Nav>
         </Collapse>
       </Navbar>
-      <Container style={{'margin-top': '10px'}}>
+      <Container style={{'marginTop': '10px'}}>
         {children}
       </Container>
       <footer color="blue" className="font-small pt-4 mt-4">

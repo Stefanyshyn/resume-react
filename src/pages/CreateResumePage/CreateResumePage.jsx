@@ -22,8 +22,7 @@ class CreateResumePage extends React.Component{
         super(props);
         this.user = UserModel.getCurrentUser();
         let _resumeFind = ResumeModel.getOne({id:this.props.match.params['resumeId']});
-        console.log(_resumeFind)
-        let resume = init.resume()
+        let resume = init.resume(_resumeFind)
         this.state = {
         indexEmployment: -1,
         isPersonalAddition: false,
@@ -236,10 +235,12 @@ class CreateResumePage extends React.Component{
             hobbies            
         }
      
-        if(isUpdateResume)
+        if(isUpdateResume){
             ResumeModel.update({id:resume.id}, resume);
-        else 
+        }
+        else{
             ResumeModel.add(resume);
+        }
         this.setState({isSaveResume:isSaveResume})
         this.setState({isUpdateResume:!isUpdateResume})
     }
