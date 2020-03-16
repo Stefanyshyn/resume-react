@@ -12,7 +12,7 @@ import init from '../../models/initialization';
 class ProfilePage extends React.Component{
     constructor(props){
         super(props);
-        let _user = ModelUser.getUserByUsername()
+        let _user = ModelUser.getUserByUsername(props.match.params['username'])
         this.user = init.user(_user);
     }
 

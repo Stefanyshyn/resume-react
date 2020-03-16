@@ -10,10 +10,14 @@ const FeedResume = (props)=>{
 
     const [user] = useState(_user);
 
+    const {
+        handleClickOnResume
+    } = props;
 
+    let currUser = ModelUser.getCurrentUser();
 
     return (
-        <Col className={style.Border}>
+        <Col className={`${style.Border} ${style.ResumeStyle}`} onClick={currUser.id===resume.idUser?handleClickOnResume:()=>{}}>
             <div className={style.userInfo}>
                 <div className={style.avatar}>
                     {user.profile.avatar?

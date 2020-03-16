@@ -12,7 +12,8 @@ import {
 import UserModel from '../models/user-front';
 
 
-const MainLayout = ({children, history}) => {
+const MainLayout = (props) => {
+  let {children, history} = props;
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
   let user = !!(UserModel.getCurrentUser());
@@ -20,7 +21,6 @@ const MainLayout = ({children, history}) => {
     UserModel.logout();
     history.replace('/sign-in')
   }
-
   return (
     <>
       {user?'':<Redirect to='/sign-in'></Redirect>}
@@ -49,7 +49,7 @@ const MainLayout = ({children, history}) => {
           </Nav>
         </Collapse>
       </Navbar>
-      <Container>
+      <Container style={{'margin-top': '10px'}}>
         {children}
       </Container>
       <footer color="blue" className="font-small pt-4 mt-4">

@@ -21,30 +21,28 @@ class CreateResumePage extends React.Component{
     constructor(props){
         super(props);
         this.user = UserModel.getCurrentUser();
-        
-        this.resume = this.props.resume;
-
-        console.log(this.resume);
-
+        let _resumeFind = ResumeModel.getOne({id:this.props.match.params['resumeId']});
+        console.log(_resumeFind)
+        let resume = init.resume()
         this.state = {
-            indexEmployment: -1,
-            isPersonalAddition: false,
-            isAddEmployment: false,
-            isAddEducation: false,
-            isAddLink: false,
-            isAddSkill: false,
-            isAddLanguage: false,
-            isSaveResume: false,
-            activeNumber:{
-                employment:-1,  
-                education:-1,  
-                link:-1,  
-                skill:-1,  
-                language:-1,  
-
+        indexEmployment: -1,
+        isPersonalAddition: false,
+        isAddEmployment: false,
+        isAddEducation: false,
+        isAddLink: false,
+        isAddSkill: false,
+        isAddLanguage: false,
+        isSaveResume: false,
+        isUpdateResume: _resumeFind?true:false,
+        activeNumber:{
+            employment:-1,  
+            education:-1,  
+            link:-1,  
+            skill:-1,  
+            language:-1,  
             },
+            ...resume
 
-            ...(init.resume(this.resume))
         }
     }
 
@@ -69,7 +67,6 @@ class CreateResumePage extends React.Component{
                 education
             ]
         })
-        console.log(education);
     }
     addLink = (link)=>{
         let {isAddLink} = this.state;
@@ -200,6 +197,7 @@ class CreateResumePage extends React.Component{
     handleSubmit = async(e)=>{
         e.preventDefault();
         const {
+            isUpdateResume,
             isSaveResume
         } = this.state;
 
@@ -238,11 +236,12 @@ class CreateResumePage extends React.Component{
             hobbies            
         }
      
-        if(this.resume)
+        if(isUpdateResume)
             ResumeModel.update({id:resume.id}, resume);
         else 
             ResumeModel.add(resume);
         this.setState({isSaveResume:isSaveResume})
+        this.setState({isUpdateResume:!isUpdateResume})
     }
 
     render = ()=> {
@@ -381,7 +380,6 @@ class CreateResumePage extends React.Component{
                     <Col className={style.containerItem}>
                     {
                         educations.map((education, index )=>{
-                            console.log(education);
                             return(
                                 <EducationHistoryItem handleClickEdit={handleClickEdit.bind(this, 'education')} 
                                 key={Math.random()} id={index} isEdit={this.state.activeNumber.education === index?true:false} 

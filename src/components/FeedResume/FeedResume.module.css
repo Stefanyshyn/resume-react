@@ -67,3 +67,7 @@
 .historyResume{
     display: flex !important;
 }
+
+.ResumeStyle:hover{
+    cursor: pointer !important;
+}

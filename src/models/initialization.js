@@ -14,8 +14,7 @@ class Initialization {
             }
     }
     resume = (resume)=>{
-        if(_.isEmpty(resume)){
-            console.log(resume)
+        if(_.isEmpty(resume) || !resume){
             return {
                 id: uuid(),
                 job: '',
@@ -40,7 +39,7 @@ class Initialization {
                 hobbies:''
             }
         }
-        return {...ResumeModel.getOne({...resume})}
+        return {...ResumeModel.getOne({id:resume.id})};
     }
 
     employment = (employment)=>{

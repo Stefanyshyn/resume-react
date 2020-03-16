@@ -64,6 +64,15 @@ function App() {
             </MainLayout>
           )}
         />
+        <Route
+          path="/create-resume/:resumeId"
+          exact
+          render={(props) => (
+            <MainLayout {...props}>
+               <CreateResumePage {...props}/>
+            </MainLayout>
+          )}
+        />
          <Route
           path="/feed-resume"
           render={(props) => (
