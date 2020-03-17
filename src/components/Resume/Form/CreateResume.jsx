@@ -222,8 +222,9 @@ class AddEducation extends React.Component {
 class AddLink extends React.Component {
     constructor(props){
         super(props);
-        this.link = init.link(this.props.data);
-        this.state = { ...(this.link) }
+
+        let link = init.link(this.props.data);
+        this.state = { ...(link) }
     }
 
     handleAddLink = ()=>{
@@ -245,6 +246,7 @@ class AddLink extends React.Component {
         const {
             handleChange
         } =this.props;
+
         let {value, name} = e.target;
         this.setState({[name]:value});
         handleChange(e);
@@ -341,6 +343,7 @@ class AddSkill extends React.Component {
         );
     }
 }
+
 class AddLanguage extends React.Component {
     constructor(props){
         super(props);

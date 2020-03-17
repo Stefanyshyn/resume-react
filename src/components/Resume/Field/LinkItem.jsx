@@ -25,19 +25,16 @@ const Setting = ({isEdit, handleRemoveItemHistory,handleOpenSetting,handleOpenEd
     );
 }
 
-class EmploymentHistoryItem extends React.Component{
+class LinkItem extends React.Component{
     constructor(props){
         super(props);
         const {isEdit, itemHistory} = this.props;
-        
-        this.employment = itemHistory;
+    
+        this.link = itemHistory;
+
         this.state={
-            job:this.employment.job,
-            employer:this.employment.employer,
-            startDate: this.employment.startDate,
-            endDate: this.employment.endDate,
-            city: this.employment.city,
-            description: this.employment.description,
+            title:this.link.title,
+            pathURL: this.link.pathURL,
 
             isEdit: isEdit,
             isSetting: false,
@@ -47,24 +44,16 @@ class EmploymentHistoryItem extends React.Component{
     handleOpenEdit = ()=>{
         const {handleClickEdit, id} = this.props;
         const {
-            job,
-            employer,
-            startDate,
-            endDate,
-            city,
-            description
+            title,
+            pathURL,
         } = this.state;
 
-        let employment = {
+        let link = {
             id: this.props.itemHistory.id,
-            job,
-            employer,
-            startDate,
-            endDate,
-            city,
-            description
+            title,
+            pathURL,
         }
-        handleClickEdit(this.state.isEdit?-1:id, employment);
+        handleClickEdit(this.state.isEdit?-1:id, link);
     }
 
     handleOpenSetting = (e)=>{
@@ -83,12 +72,10 @@ class EmploymentHistoryItem extends React.Component{
         const {handleOpenSetting, handleOpenEdit, handleChange} = this;
     
         const {
-            job, 
-            employer,
-            startDate,
-            endDate,
+            title,
+            pathURL,
         } = this.state;
-
+    
         return (
             <div className={style.divBorder}>
                 <div className={style.displayInfo}>
@@ -97,28 +84,16 @@ class EmploymentHistoryItem extends React.Component{
                             <div className={style.Title}>
                                 <span>
                                 {
-                                    _.isEmpty(job) && _.isEmpty(employer)?
+                                    _.isEmpty(title) && _.isEmpty(pathURL)?
                                     `(Not specsfied)`
                                     :
-                                    !_.isEmpty(job) && !_.isEmpty(employer)?
-                                    `${job} at ${employer}`
+                                    !_.isEmpty(title) && !_.isEmpty(pathURL)?
+                                    `${title} at ${pathURL}`
                                     :
-                                    _.isEmpty(job)?
-                                    employer:job
+                                    _.isEmpty(title)?
+                                    pathURL:title
                                 }
                                 </span>
-                            </div>
-                            <div className={style.StartAndEndDate}>
-                            {
-                                    _.isEmpty(startDate) && _.isEmpty(endDate)?
-                                    ''
-                                    :
-                                    !_.isEmpty(startDate) && !_.isEmpty(endDate)?
-                                    `${moment(startDate).format('MMM, YYYY')} - ${moment(endDate).format('MMM, YYYY')}`
-                                    :
-                                    _.isEmpty(startDate)?
-                                    moment(endDate).format('MMM, YYYY'):moment(startDate).format('MMM, YYYY')
-                                }
                             </div>
                         </div>
                         <div className={style.itemSetting} onClick={handleOpenSetting}>
@@ -131,21 +106,21 @@ class EmploymentHistoryItem extends React.Component{
                         </div>
                     </div>
                     <div className={style.EditItem}>
-                        {
-                            isEdit?
-                            <Media width="24" height="24" viewBox="0 0 24 24" onClick={handleOpenEdit} src='https://image.flaticon.com/icons/svg/748/748063.svg' alt=" > "/>                            
-                            :
-                            <Media width="24" height="24" viewBox="0 0 24 24" onClick={handleOpenEdit} src='https://image.flaticon.com/icons/svg/748/748073.svg' alt=" > "/>
-                        }
-                    </div>
+                    {
+                        isEdit?
+                        <Media width="24" height="24" viewBox="0 0 24 24" onClick={handleOpenEdit} src='https://image.flaticon.com/icons/svg/748/748063.svg' alt=" > "/>                            
+                        :
+                        <Media width="24" height="24" viewBox="0 0 24 24" onClick={handleOpenEdit} src='https://image.flaticon.com/icons/svg/748/748073.svg' alt=" > "/>
+                    }
+                </div>
                 </div>
                 {
                     isEdit?
-                    <EditComponet data={ this.employment } addHistory={ handleOpenEdit } handleChange={handleChange}/>
+                    <EditComponet data={ this.link } addHistory={ handleOpenEdit } handleChange={handleChange}/>
                     :""
                 }
             </div>
         );
     }
 }
-export default EmploymentHistoryItem;
+export default LinkItem;

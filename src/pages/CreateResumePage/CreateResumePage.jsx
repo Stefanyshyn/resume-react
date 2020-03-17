@@ -152,18 +152,21 @@ class CreateResumePage extends React.Component{
     handleClickAddLink = (e) =>{
         let {links} = this.state;
         this.setState({
+            activeNumber:{link:this.state.links.length},
             links:[...links, init.link()]
         });
     }
     handleClickAddSkill = (e) =>{
         let {skills} = this.state;
         this.setState({
+            activeNumber:{skill:this.state.skills.length},
             skills:[...skills, init.skill()]
         });
     }
     handleClickAddLanguage = (e) =>{
         let {languages} = this.state;
         this.setState({
+            activeNumber:{language:this.state.languages.length},
             languages:[...languages, init.language()]
         });
     }
