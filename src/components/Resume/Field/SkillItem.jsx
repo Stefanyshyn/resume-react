@@ -25,19 +25,17 @@ const Setting = ({isEdit, handleRemoveItemHistory,handleOpenSetting,handleOpenEd
     );
 }
 
-class EmploymentHistoryItem extends React.Component{
+class SkillItem extends React.Component{
     constructor(props){
         super(props);
         const {isEdit, itemHistory} = this.props;
         
-        this.employment = itemHistory;
+        this.skill = itemHistory;
         this.state={
-            job:this.employment.job,
-            employer:this.employment.employer,
-            startDate: this.employment.startDate,
-            endDate: this.employment.endDate,
-            city: this.employment.city,
-            description: this.employment.description,
+            skill:'',
+            degree: '',
+            skill: this.skill.skill,
+            degree: this.skill.degree,
 
             isEdit: isEdit,
             isSetting: false,
@@ -47,24 +45,16 @@ class EmploymentHistoryItem extends React.Component{
     handleOpenEdit = ()=>{
         const {handleClickEdit, id} = this.props;
         const {
-            job,
-            employer,
-            startDate,
-            endDate,
-            city,
-            description
+            skill,
+            degree,
         } = this.state;
 
-        let employment = {
+        let _skill = {
             id: this.props.itemHistory.id,
-            job,
-            employer,
-            startDate,
-            endDate,
-            city,
-            description
-        }
-        handleClickEdit(this.state.isEdit?-1:id, employment);
+            skill,
+            degree,
+       }
+        handleClickEdit(this.state.isEdit?-1:id, _skill);
     }
 
     handleOpenSetting = (e)=>{
@@ -83,10 +73,8 @@ class EmploymentHistoryItem extends React.Component{
         const {handleOpenSetting, handleOpenEdit, handleChange} = this;
     
         const {
-            job, 
-            employer,
-            startDate,
-            endDate,
+            skill,
+            degree,
         } = this.state;
 
         return (
@@ -97,28 +85,16 @@ class EmploymentHistoryItem extends React.Component{
                             <div className={style.Title}>
                                 <span>
                                 {
-                                    _.isEmpty(job) && _.isEmpty(employer)?
+                                    _.isEmpty(skill) && _.isEmpty(degree)?
                                     `(Not specsfied)`
                                     :
-                                    !_.isEmpty(job) && !_.isEmpty(employer)?
-                                    `${job} at ${employer}`
+                                    !_.isEmpty(skill) && !_.isEmpty(degree)?
+                                    `${skill} at ${degree}`
                                     :
-                                    _.isEmpty(job)?
-                                    employer:job
+                                    _.isEmpty(skill)?
+                                    degree:skill
                                 }
                                 </span>
-                            </div>
-                            <div className={style.StartAndEndDate}>
-                            {
-                                    _.isEmpty(startDate) && _.isEmpty(endDate)?
-                                    ''
-                                    :
-                                    !_.isEmpty(startDate) && !_.isEmpty(endDate)?
-                                    `${moment(startDate).format('MMM, YYYY')} - ${moment(endDate).format('MMM, YYYY')}`
-                                    :
-                                    _.isEmpty(startDate)?
-                                    moment(endDate).format('MMM, YYYY'):moment(startDate).format('MMM, YYYY')
-                                }
                             </div>
                         </div>
                         <div className={style.itemSetting} onClick={handleOpenSetting}>
@@ -141,11 +117,11 @@ class EmploymentHistoryItem extends React.Component{
                 </div>
                 {
                     isEdit?
-                    <EditComponet data={ this.employment } addHistory={ handleOpenEdit } handleChange={handleChange}/>
+                    <EditComponet data={ this.skill } addHistory={ handleOpenEdit } handleChange={handleChange}/>
                     :""
                 }
             </div>
         );
     }
 }
-export default EmploymentHistoryItem;
+export default SkillItem;

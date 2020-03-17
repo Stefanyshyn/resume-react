@@ -30,14 +30,10 @@ class EmploymentHistoryItem extends React.Component{
         super(props);
         const {isEdit, itemHistory} = this.props;
         
-        this.employment = itemHistory;
+        this.language = itemHistory;
         this.state={
-            job:this.employment.job,
-            employer:this.employment.employer,
-            startDate: this.employment.startDate,
-            endDate: this.employment.endDate,
-            city: this.employment.city,
-            description: this.employment.description,
+            language:this.language.language,
+            level:this.language.level,
 
             isEdit: isEdit,
             isSetting: false,
@@ -47,24 +43,16 @@ class EmploymentHistoryItem extends React.Component{
     handleOpenEdit = ()=>{
         const {handleClickEdit, id} = this.props;
         const {
-            job,
-            employer,
-            startDate,
-            endDate,
-            city,
-            description
+            language,
+            level
         } = this.state;
 
-        let employment = {
+        let _language = {
             id: this.props.itemHistory.id,
-            job,
-            employer,
-            startDate,
-            endDate,
-            city,
-            description
+            language,
+            level
         }
-        handleClickEdit(this.state.isEdit?-1:id, employment);
+        handleClickEdit(this.state.isEdit?-1:id, _language);
     }
 
     handleOpenSetting = (e)=>{
@@ -83,10 +71,8 @@ class EmploymentHistoryItem extends React.Component{
         const {handleOpenSetting, handleOpenEdit, handleChange} = this;
     
         const {
-            job, 
-            employer,
-            startDate,
-            endDate,
+            language,
+            level
         } = this.state;
 
         return (
@@ -97,28 +83,16 @@ class EmploymentHistoryItem extends React.Component{
                             <div className={style.Title}>
                                 <span>
                                 {
-                                    _.isEmpty(job) && _.isEmpty(employer)?
+                                    _.isEmpty(language) && _.isEmpty(level)?
                                     `(Not specsfied)`
                                     :
-                                    !_.isEmpty(job) && !_.isEmpty(employer)?
-                                    `${job} at ${employer}`
+                                    !_.isEmpty(language) && !_.isEmpty(level)?
+                                    `${language} at ${level}`
                                     :
-                                    _.isEmpty(job)?
-                                    employer:job
+                                    _.isEmpty(language)?
+                                    level:language
                                 }
                                 </span>
-                            </div>
-                            <div className={style.StartAndEndDate}>
-                            {
-                                    _.isEmpty(startDate) && _.isEmpty(endDate)?
-                                    ''
-                                    :
-                                    !_.isEmpty(startDate) && !_.isEmpty(endDate)?
-                                    `${moment(startDate).format('MMM, YYYY')} - ${moment(endDate).format('MMM, YYYY')}`
-                                    :
-                                    _.isEmpty(startDate)?
-                                    moment(endDate).format('MMM, YYYY'):moment(startDate).format('MMM, YYYY')
-                                }
                             </div>
                         </div>
                         <div className={style.itemSetting} onClick={handleOpenSetting}>
