@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import  {Media} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './ItemResume.module.css';

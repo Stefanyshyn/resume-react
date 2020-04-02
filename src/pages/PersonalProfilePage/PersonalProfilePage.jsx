@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import style from './PersonalProfilePage.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import useUserProfile from '../../hooks/usePersonalProfile';
+import {useUserProfile} from '../../hooks/usePersonalProfile';
 
 const ProfilePage = ({user, ...props}) => {
     const {state,
