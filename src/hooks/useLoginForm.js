@@ -20,7 +20,6 @@ export const useLoginForm = (props)=>{
 
     const handleSubmit = (e)=> {
         e.preventDefault();
-        console.log('re-render');
         const {username, password, confirmPassword } = state;
         const { history, isLogin} = props;
         try{

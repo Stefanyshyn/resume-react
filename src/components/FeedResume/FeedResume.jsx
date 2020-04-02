@@ -18,6 +18,7 @@ const FeedResume = (props)=>{
         resumes,
         currentUser
     } = props;
+    
     const [isMyResume, setIsMyResume] = useState(false);
 
     const toggle = tab => {

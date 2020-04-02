@@ -1,34 +1,43 @@
-import React  from 'react';
+import React, { useState, useEffect }  from 'react';
 import FeedResume from '../../components/FeedResume';
 import ModelResume from '../../models/resume';
 import ModelUser from '../../models/user-front';
 
-class FeedResumePage extends React.Component{ 
-    constructor(props){
-        super(props);
-        let resumes = props.resumes?props.resumes:ModelResume.get({})
+function useUserProfile({history}){    
+    const currentUser = ModelUser.getCurrentUser();
+    // eslint-disable-next-line no-unused-vars
+    const [state, setState] = useState({
+        resumes: [],
 
-        this.state = {
-            resumes: resumes,
-        }
-    }
-
-    handleClickOnResume = (resume)=>{
-        let {history} = this.props;
-
+    })
+    const handleClickOnResume = (resume)=>{
         history.push(`/create-resume/${resume.id}`)
     }
-
-    render = ()=> {
-        const {
-            resumes
-        } = this.state;
-        const {
-            handleClickOnResume
-        } = this;
-        return (
-            <FeedResume resumes={resumes} currentUser={ModelUser.getCurrentUser()} handleClickOnResume={handleClickOnResume}></FeedResume>
-        );
+    useEffect(()=>{
+        setState(s=>({ ...s, resumes:[ ...(ModelResume.get({})) ] }))
+    }, [])
+    
+    return {
+        state,
+        currentUser,
+        handleClickOnResume
     }
+}
+const FeedResumePage = ({history})=>{ 
+    const {
+        state,
+        currentUser,
+        handleClickOnResume
+    } = useUserProfile({history});
+    const { resumes } = state;
+
+    return (
+        <FeedResume 
+        resumes={resumes} 
+        currentUser={currentUser} 
+        handleClickOnResume={handleClickOnResume}
+        >            
+        </FeedResume>
+    );
 }
 export default FeedResumePage;
