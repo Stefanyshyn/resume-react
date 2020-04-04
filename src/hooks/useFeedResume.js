@@ -1,19 +1,24 @@
-import { useState } from 'react';
-import UserModel from '../models/user-front';
+import { useState, useEffect, useMemo }  from 'react';
+import ModelResume from '../models/resume';
+import ModelUser from '../models/user-front';
 
-export function useUserProfile({user}){    
-    
+export const useFeedReseme = ({history})=>{    
+    const currentUser = useMemo(()=>ModelUser.getCurrentUser(),[]);
+    // eslint-disable-next-line no-unused-vars
     const [state, setState] = useState({
-        avatar: currentUser.profile.avatar,
-            newAvatar: null,
-            username: currentUser.username,
-            name: currentUser.profile.name||'',
-    
-            isSaveResume: false
-    })
+        resumes: [],
 
+    })
+    const handleClickOnResume = (resume)=>{
+        history.push(`/create-resume/${resume.id}`)
+    }
+    useEffect(()=>{
+        setState(s=>({ ...s, resumes:[ ...(ModelResume.get({})) ] }))
+    }, [])
+    
     return {
         state,
-      
+        currentUser,
+        handleClickOnResume
     }
 }
