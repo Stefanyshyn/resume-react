@@ -7,7 +7,7 @@ const initState = {
     alterMessege:{
         active: false,
         message: '',
-        typeMessage: 'success'
+        typeAlert: 'success'
     }
 }
 const auth = (state=initState, action)=>{
@@ -21,9 +21,10 @@ const auth = (state=initState, action)=>{
         case RegistrationActions.SHOW_MESSAGE:
             return {...state, 
                 alterMessege: {
+                    ...(state.alterMessege),
                     active: true,
-                    message: action.confirmPassword,
-                    typeMessage: action.typeMessage,
+                    message: action.message,
+                    typeAlert: action.typeAlert,
                 }
             }
         case RegistrationActions.CLOSE_MESSAGE:

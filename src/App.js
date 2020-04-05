@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import './App.css';
 //pages
-import LoginPage from './pages/LoginPage/';
+import LoginPage from './containers/auth/Registration';
 import Test from './pages/TestPage';
 import ProfilePage from './pages/ProfilePage';
 import PersonalProfilePage from './pages/PersonalProfilePage';

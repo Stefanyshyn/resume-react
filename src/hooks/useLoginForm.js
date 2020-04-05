@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 import ModelUser from '../models/user-front';
+import TYPE_MESSAGE from '../constants/typeMessage';
 
 export const useLoginForm = (props)=>{
     const [state, setState] = useState({
-        username: '',
+        username: '', 
         password: '',
-        confirmPassword: '',
         error:{
             active: false,
             message: ''
@@ -20,26 +20,29 @@ export const useLoginForm = (props)=>{
 
     const handleSubmit = (e)=> {
         e.preventDefault();
-        const {username, password, confirmPassword } = state;
         const { history, isLogin} = props;
+        const { username, password, confirmPassword} = props.auth;
+            
         try{
             if(isLogin)
                 ModelUser.login(username, password);
             else {
+                if(username.trim() === '')
+                    throw new Error('Username is empty')
+                if(password.trim() === '')
+                    throw new Error('Password is empty')
+                if(confirmPassword.trim() === '')
+                    throw new Error('Confirm password is empty')
                 if(password !== confirmPassword) 
                     throw new Error('confirm password is wrong')                
                 ModelUser.signup(username, password);
             }
-            history.push('/profile');        
+            history.push('/profile');       
         }catch(e)
         {
-            setState((s)=>({...s, 
-                error:{
-                    active: true,
-                    message: e.message
-                }
-            }))
+            props.showMessage(e.message, TYPE_MESSAGE.DANGER)
         }        
+        
     }
 
     return {

@@ -24,11 +24,11 @@ export  const changeConfirmPassword = (confirmPassword)=>{
         confirmPassword
     }
 }
-export const showMessage = (text, typeMessage)=>{
+export const showMessage = (message, typeAlert)=>{
     return {
         type: RegistrationActions.SHOW_MESSAGE,
-        text,
-        typeMessage,
+        message,
+        typeAlert,
     };
 }
 export const closeMessage = ()=>{

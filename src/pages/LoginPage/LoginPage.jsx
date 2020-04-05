@@ -1,22 +1,32 @@
 import React from 'react';
-import {Alert} from 'reactstrap';
+import {Alert} from 'reactstrap'
 import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import style from './LoginPage.module.css';
 import LoginForm from '../../components/LoginForm';
-import RegisterFrom from '../../components/RegisterForm';
+import Registration from '../../components/RegisterForm';
+
 import {useLoginForm} from '../../hooks/useLoginForm';
 
 const LoginPage = (props) => { 
     const {
-        state,
-        handleChange,
-        handleSubmit    
+        handleSubmit,
+        handleChange    
     } = useLoginForm(props);
+
+    const {
+        active,
+        message,
+        typeAlert
+    } = props.auth.alterMessege;
     const {isLogin} = props;
-    const {error} = state;
+
+    const {
+        closeMessage,
+    }=props;
+    
     return (
-        <div className={style.loginContainer}>          
+        <div className={style.loginContainer}>
             {isLogin?(
                 <React.Fragment>
                     <h2>Login</h2>
@@ -25,9 +35,12 @@ const LoginPage = (props) => {
             ):(
                 <React.Fragment>
                     <h2>Registration</h2>
-                    <RegisterFrom handleSubmit={handleSubmit} handleChange={handleChange}/>
+                    <Registration handleSubmit={handleSubmit}  {...props} />
                 </React.Fragment>
             )}
+            <Alert color={typeAlert} isOpen={active} toggle={closeMessage} fade={false}>
+                {message}
+            </Alert>
             <div>
                 {
                 isLogin ? (
@@ -42,7 +55,6 @@ const LoginPage = (props) => {
                 )
                 }
             </div>
-            <Alert isOpen={error.active}> {error.message}</Alert>
         </div>
     );
 }
